@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import IconCard from '../components/IconCard'
+
 export default function PlatformPage() {
   const features = [
     {
@@ -103,37 +106,22 @@ export default function PlatformPage() {
           </div>
           <div className="row gy-4">
             {features.map(({ icon, title, text }, idx) => (
-              <div className="col-lg-4 col-md-6" key={title} data-aos="fade-up" data-aos-delay={100 * (idx + 1)}>
-                <article className="content-card h-100 p-4 transition-hover">
-                  <div
-                    className="mb-4 d-inline-flex align-items-center justify-content-center"
-                    style={{ width: '64px', height: '64px', background: 'rgba(123, 67, 250, 0.1)', borderRadius: '16px', color: 'var(--brand)', fontSize: '1.6rem' }}
-                  >
-                    <i className={`bi bi-${icon}`}></i>
-                  </div>
-                  <h3 className="mb-3">{title}</h3>
-                  <p className="text-muted mb-0">{text}</p>
-                </article>
-              </div>
+              <IconCard
+                key={title}
+                icon={icon}
+                title={title}
+                text={text}
+                delay={100 * (idx + 1)}
+                iconSize="64px"
+                iconRadius="16px"
+                iconFontSize="1.6rem"
+                cardClassName="content-card h-100 p-4 transition-hover"
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="cta-section py-5">
-        <div className="container" data-aos="zoom-in">
-          <div className="cta-card text-center p-5">
-            <h2 className="fw-bold mb-3 text-white">Ready to explore the platform?</h2>
-            <p className="mb-4" style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem' }}>
-              Book a personalized walkthrough with our team and see how Plutus can transform your digital asset operations.
-            </p>
-            <a href="/contact" className="btn-cta-white">
-              Request a Demo
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
   )
 }

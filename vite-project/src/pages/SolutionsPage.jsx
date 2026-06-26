@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import IconCard from '../components/IconCard'
+
 export default function SolutionsPage() {
   const solutions = [
     {
@@ -107,42 +110,22 @@ export default function SolutionsPage() {
           </div>
           <div className="row gy-4">
             {solutions.map(({ icon, title, text, color }) => (
-              <div className="col-lg-4 col-md-6" key={title}>
-                <article className="content-card h-100 p-4">
-                  <div
-                    className="mb-4 d-inline-flex align-items-center justify-content-center"
-                    style={{ width: '64px', height: '64px', background: color, borderRadius: '16px', color: 'var(--brand)', fontSize: '1.6rem' }}
-                  >
-                    <i className={`bi bi-${icon}`}></i>
-                  </div>
-                  <h3 className="mb-3">{title}</h3>
-                  <p className="text-muted mb-0">{text}</p>
-                </article>
-              </div>
+              <IconCard
+                key={title}
+                icon={icon}
+                title={title}
+                text={text}
+                iconBgColor={color}
+                iconSize="64px"
+                iconRadius="16px"
+                iconFontSize="1.6rem"
+                cardClassName="content-card h-100 p-4"
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="cta-section py-5">
-        <div className="container">
-          <div className="cta-card text-center p-5">
-            <h2 className="fw-bold mb-3 text-white">Start with a personalized demo</h2>
-            <p className="mb-4" style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem' }}>
-              Speak with our team to discover which solutions best match your investment goals and operational needs.
-            </p>
-            <div className="d-flex gap-3 justify-content-center flex-wrap">
-              <a href="/contact" className="btn-cta-white">
-                Request a Demo
-              </a>
-              <a href="/login" className="btn-cta-outline">
-                Access Platform
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   )
 }

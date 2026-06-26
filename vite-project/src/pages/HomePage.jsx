@@ -1,4 +1,56 @@
+import IconCard from '../components/IconCard'
+import HeroSlider from '../components/HeroSlider'
+import { useState, useRef, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
+
 export default function HomePage() {
+  const trackRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [expandedFAQ, setExpandedFAQ] = useState(null)
+
+  const serviceSlides = [
+    {
+      title: 'Social Marketing',
+      description: 'Promoting your brand through social platforms to engage audiences and drive results.',
+      image: '/socialmedia.webp',
+      path: '/services/social-media',
+    },
+    {
+      title: 'Branding & Strategy',
+      description: 'Building a strong brand identity and planning strategies to achieve business growth.',
+      image: '/branding & strategy.webp',
+      path: '/services/branding',
+    },
+    {
+      title: 'SEO Marketing',
+      description: 'Optimizing your website to rank higher on search engines and drive organic traffic.',
+      image: '/seomarketing.webp',
+      path: '/services/seo',
+    },
+    {
+      title: 'Content Creation',
+      description: 'Creating and sharing valuable content to attract, engage, and convert your audience.',
+      image: '/hero-slide-4.png',
+      path: '/services/content',
+    },
+    {
+      title: 'Web & Tech Development',
+      description: 'Web development and technical solutions to power your online presence.',
+      image: '/hero-slide-1.webp',
+      path: '/services/web',
+    },
+  ]
+  
+  useEffect(() => {
+    if (paused) return undefined
+    const id = setInterval(() => {
+      setActiveIndex(prev => (prev + 1) % serviceSlides.length)
+    }, 3200)
+    return () => clearInterval(id)
+  }, [paused, serviceSlides.length])
+
+
   const values = [
     {
       icon: 'shield-check',
@@ -24,64 +76,273 @@ export default function HomePage() {
     { value: '30+', label: 'Hard Workers' },
   ]
 
+  const testimonials = [
+    {
+      name: 'Trimortal Ventures',
+      role: 'Founder',
+      image: '/testimonial-1.jpg',
+      rating: 5,
+      text: 'Plutuss Digital gave us exactly what we needed- a clean, modern website and consistent social media presence. Their strategy and support made a real difference.'
+    },
+    {
+      name: 'Royal Court',
+      role: 'CEO',
+      image: '/testimonial-2.jpg',
+      rating: 5,
+      text: 'We\'ve seen a great boost in visibility with Plutuss Digital. Their targeted campaigns and social media management helped us attract the right buyers.'
+    },
+    {
+      name: 'Prosumers Solar Pvt. Ltd.',
+      role: 'Director',
+      image: '/testimonial-3.jpg',
+      rating: 5,
+      text: 'Plutuss Digital transformed our online presence. From web design to social media, everything was handled with creativity and precision. Truly a game-changer!'
+    },
+  ]
+
+  const faqItems = [
+    {
+      question: 'What services does Plutuss Digital offer?',
+      answer: 'We offer comprehensive digital marketing services including SEO, social media management, content creation, branding strategy, web development, and PPC campaigns to help your business grow online.'
+    },
+    {
+      question: 'How long does SEO take to show results?',
+      answer: 'SEO is a long-term strategy. Typically, you can expect to see initial results within 3-6 months, with significant improvements visible after 6-12 months, depending on competition and your starting point.'
+    },
+    {
+      question: 'Do you provide website design and development?',
+      answer: 'Yes, we provide full website design and development services. We create modern, responsive, and user-friendly websites optimized for conversions and search engines.'
+    },
+    {
+      question: 'Can you manage our social media accounts?',
+      answer: 'Absolutely! We manage social media accounts across all major platforms including Facebook, Instagram, LinkedIn, and Twitter. We create content, engage with followers, and track performance metrics.'
+    },
+    {
+      question: 'Do you work with small businesses and startups?',
+      answer: 'Yes! We work with businesses of all sizes, from startups to established companies. We tailor our services and pricing to fit your budget and business goals.'
+    },
+  ]
+
+  const toggleFAQ = (index) => {
+    setExpandedFAQ(expandedFAQ === index ? null : index)
+  }
+
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <i key={i} className={`bi bi-star${i < Math.floor(rating) ? '-fill' : i < rating ? '-half' : ''}`}></i>
+    ))
+  }
+
   return (
     <main className="main">
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <div className="hero-wrapper">
-        <section id="hero" className="container position-relative">
-          <div className="row gy-4 align-items-center">
-            <div className="col-lg-6 order-1 order-lg-1 d-flex flex-column justify-content-center hero-copy pe-lg-5">
-              <span className="hero-badge">Trusted digital asset infrastructure</span>
-              <h1 className="fw-bold" data-aos="fade-up">
-                Empowering Individuals and Institutional Investors
-              </h1>
-              <p className="mb-4" data-aos="fade-up" data-aos-delay="100">
-                Plutus Digital Asset Platform offers seamless market access to the world's premier crypto trading and liquidity venues, all through a single, unified platform.
-              </p>
-              <div className="hero-btns d-flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="200">
-                <a href="/login" className="btn-hero-primary">
-                  Access Platform <i className="bi bi-arrow-right ms-1"></i>
-                </a>
-                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" target="_blank" rel="noopener noreferrer" className="btn-hero-outline">
-                  <i className="bi bi-play-circle me-2"></i> Watch Video
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-6 order-2 order-lg-2 hero-img text-center" data-aos="zoom-out">
-              <img
-                src="https://plutusdigitalasset.com/assets/img/hero-img.png"
-                className="img-fluid floating-img"
-                alt="Plutus platform interface"
-                style={{ maxWidth: '440px' }}
-              />
-            </div>
-          </div>
-        </section>
-      </div>
+      {/* ── Hero Slider ─────────────────────────────────── */}
+      <HeroSlider />
 
       {/* ── About ─────────────────────────────────────────── */}
-      <section id="about" className="about section py-5">
+      <section id="about" className="about section py-5 dg-about-section">
         <div className="container" data-aos="fade-up">
-          <div className="row justify-content-center">
-            <div className="col-lg-10" data-aos="fade-up" data-aos-delay="200">
-              <h3 className="mb-4 text-dark fw-bold" style={{ fontSize: '1.75rem', lineHeight: '1.5' }}>
-                Welcome to Plutus Digital Asset Platform, where innovation meets reliability. Whether you're an individual investor or a seasoned financial institution, our platform is tailored to meet your needs with precision and efficiency.
-              </h3>
-              <p className="text-muted mb-4" style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>
-                For individuals, Plutus Digital Asset Platform offers intuitive tools designed to simplify investment decisions and maximize returns. From comprehensive portfolio management to real-time market insights, our user-friendly interface ensures that every investor can navigate the complexities of finance with confidence.
-              </p>
-              <p className="text-muted mb-5" style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>
-                For institutions, Plutus Digital Asset Platform provides robust solutions that streamline operations and enhance performance. Our customizable analytics and reporting capabilities empower organizations to make data-driven decisions swiftly and securely. With Plutus Digital Asset Platform, institutions gain a competitive edge in a rapidly evolving market landscape.
-              </p>
-              <p className="fw-bold mb-0" style={{ fontSize: '1.1rem', color: 'var(--brand)' }}>
-                At Plutus Digital Asset Platform, we are committed to driving success through cutting-edge technology and unwavering dedication to our clients' goals.
-              </p>
+          <div className="row align-items-center gy-5">
+            <div className="col-lg-6">
+              <div className="dg-about-img-wrap">
+                <img src="/about-03.jpg" alt="About Plutus" className="dg-about-img" />
+              </div>
+            </div>
+
+            <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+              <div className="dg-about-content ps-lg-4">
+                <span className="dg-about-pill">
+                  <i className="bi bi-info-circle-fill me-2"></i> About Us
+                </span>
+
+                <h3 className="mb-3 text-dark fw-bold dg-about-title">
+                  Smart SEO & Marketing
+                  <br />
+                  Solutions <span className="fst-italic">for Business</span>
+                </h3>
+
+                <p className="text-muted mb-4 dg-about-subtitle">
+                  <span className="dg-about-dropcap">W</span>e are a results-driven digital marketing and SEO agency dedicated to helping businesses grow their online presence and attract qualified traffic.
+                </p>
+
+                <div className="dg-about-list mb-4">
+                  <div className="dg-about-list-item">
+                    <i className="bi bi-check2-circle"></i>
+                    <span>Improve Google rankings and organic traffic</span>
+                  </div>
+                  <div className="dg-about-list-item">
+                    <i className="bi bi-check2-circle"></i>
+                    <span>PPC campaigns for targeted and fast results</span>
+                  </div>
+                  <div className="dg-about-list-item">
+                    <i className="bi bi-check2-circle"></i>
+                    <span>Result-oriented digital marketing strategies</span>
+                  </div>
+                  <div className="dg-about-list-item">
+                    <i className="bi bi-check2-circle"></i>
+                    <span>Conversion Rate Optimization (CRO)</span>
+                  </div>
+                </div>
+
+                <div className="dg-about-footer d-flex flex-column flex-sm-row align-items-center gap-3">
+                  <a href="/contact" className="dg-about-primary-btn">
+                    Get More Traffic <i className="bi bi-arrow-right ms-2"></i>
+                  </a>
+
+                  <div className="dg-about-phone d-flex align-items-center gap-3">
+                    <span className="dg-phone-icon">
+                      <i className="bi bi-telephone-fill"></i>
+                    </span>
+                    <div>
+                      <div className="fw-semibold">(888) 4567890</div>
+                      <small className="text-muted">Speak with our team</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="dg-about-circle-badge mt-5">
+                  <div className="dg-about-circle-inner">
+                    <i className="bi bi-rocket-fill"></i>
+                  </div>
+                  <div className="dg-about-circle-text">ABOUT US • SEOFIN • ABOUT US</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Values ────────────────────────────────────────── */}
+      {/* ── Services Slider (cards with horizontal slide) ───── */}
+      <section className="services-offer section py-5">
+        <div className="container" data-aos="fade-up">
+          <div className="services-header text-center mb-5">
+            <span className="service-pill">
+              <i className="bi bi-graph-up me-2"></i> Services We Offer
+            </span>
+            <h2 className="fw-bold">ROI-Focused Digital Marketing & <span className="text-gradient">SEO Services</span></h2>
+          </div>
+
+          <div className="services-slider" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+            <div className="services-track" ref={trackRef} style={{ transform: `translateX(-${activeIndex * (100 / Math.min(3, serviceSlides.length))}%)` }}>
+              {serviceSlides.map((s, i) => (
+                <div className="service-slide-col" key={s.title}>
+                  <div className="service-card h-100 text-center py-4 px-3">
+                    <div className="service-card-img-wrapper mb-4">
+                      <img src={s.image} alt={s.title} className="service-card-img" />
+                    </div>
+                    <h3 className="service-card-title mb-3">{s.title}</h3>
+                    <p className="service-card-desc text-muted mb-4">{s.description}</p>
+                    <NavLink to={s.path} className="service-card-link">Learn More <i className="bi bi-arrow-right ms-1"></i></NavLink>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* autoplay controls removed; slider advances automatically */}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Featured Projects ────────────────────────────── */}
+      <section className="featured-projects section py-5">
+        <div className="container" data-aos="fade-up">
+          <div className="projects-header text-center mb-5">
+            <span className="project-pill">
+              <i className="bi bi-star-fill me-2"></i> Featured Projects
+            </span>
+            <h2 className="fw-bold">Work We're <span className="text-gradient">Proud Of</span></h2>
+          </div>
+
+          <div className="row gy-4">
+            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div className="project-card">
+                <div className="project-card-header">
+                  <div className="project-card-img">
+                    <img src="/royal-court-logo.png" alt="Royal Court" />
+                  </div>
+                </div>
+                <h3 className="project-card-title mt-4 mb-3">Royal Court</h3>
+                <p className="project-card-desc text-muted">A real estate campaign that generated quality leads within the first month and achieved excellent ROI through a tailored digital marketing strategy.</p>
+              </div>
+            </div>
+
+            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+              <div className="project-card">
+                <div className="project-card-header">
+                  <div className="project-card-img">
+                    <img src="/trimortal-logo.png" alt="Trimortal Ventures" />
+                  </div>
+                </div>
+                <h3 className="project-card-title mt-4 mb-3">Trimortal Ventures</h3>
+                <p className="project-card-desc text-muted">Generated high-quality real estate leads and built trust by showcasing successful collaborations and client satisfaction through strategic content marketing.</p>
+              </div>
+            </div>
+
+            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+              <div className="project-card">
+                <div className="project-card-header">
+                  <div className="project-card-img">
+                    <img src="/prosumers-logo.png" alt="Prosumers Solar" />
+                  </div>
+                </div>
+                <h3 className="project-card-title mt-4 mb-3">Prosumers Solar Pvt Ltd</h3>
+                <p className="project-card-desc text-muted">Generated qualified solar leads and built trust with educational content to promote sustainable energy adoption and long-term customer relationships.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Reviews From Clients ────────────────────────── */}
+      <section className="reviews-section section py-5">
+        <div className="container" data-aos="fade-up">
+          <div className="reviews-header text-center mb-5" data-aos="fade-up">
+            <h2 className="display-4 fw-bold mb-0" style={{ color: '#111827' }}>
+              Reviews From <br />
+              <span className="d-inline-flex align-items-center gap-3 mt-2">
+                <img src="/review-icon.png" alt="Reviews" style={{ width: '80px', height: '80px', objectFit: 'contain' }} /> Our Clients
+              </span>
+            </h2>
+          </div>
+
+          <div className="reviews-wrapper">
+            <div className="reviews-container">
+              <div className="reviews-track" style={{ transform: `translateX(-${activeIndex * (100 / 3)}%)` }}>
+                {testimonials.map((testimonial, i) => (
+                  <div className="review-card-col" key={i}>
+                    <div className="review-card">
+                      <div className="review-card-content-bg">
+                        <div className="review-stars mb-3">
+                          {renderStars(testimonial.rating)}
+                        </div>
+                        <p className="review-text m-0">"{testimonial.text}"</p>
+                      </div>
+                      <div className="review-footer">
+                        <img src={testimonial.image} alt={testimonial.name} className="review-avatar" />
+                        <div className="review-author-info">
+                          <h5 className="review-name mb-0">{testimonial.name}</h5>
+                          <p className="review-role mb-0">Happy Client</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="reviews-dots mt-5 text-center">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                className={`dot ${activeIndex === i ? 'active' : ''}`}
+                onClick={() => setActiveIndex(i)}
+              ></button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Values ──────────────────────────────────────────
       <section id="values" className="values section py-5">
         <div className="container section-title text-center mb-5" data-aos="fade-up">
           <h2 className="fw-bold">Our Values</h2>
@@ -90,24 +351,13 @@ export default function HomePage() {
         <div className="container">
           <div className="row gy-4">
             {values.map(({ icon, title, text }) => (
-              <div className="col-lg-4 col-md-6" key={title}>
-                <article className="content-card h-100 text-center p-4 p-lg-5">
-                  <div
-                    className="mb-4 d-inline-flex align-items-center justify-content-center"
-                    style={{ width: '80px', height: '80px', background: 'rgba(123, 67, 250, 0.1)', borderRadius: '50%', color: 'var(--brand)', fontSize: '2rem' }}
-                  >
-                    <i className={`bi bi-${icon}`}></i>
-                  </div>
-                  <h3 className="mb-3">{title}</h3>
-                  <p className="text-muted mb-0">{text}</p>
-                </article>
-              </div>
+              <IconCard key={title} icon={icon} title={title} text={text} />
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* ── Stats ─────────────────────────────────────────── */}
+      {/* ── Stats ───────────────────────────────────────────
       <section id="stats" className="stats section py-5">
         <div className="container" data-aos="fade-up" data-aos-delay="100">
           <div className="row gy-4">
@@ -121,9 +371,9 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* ── Features ──────────────────────────────────────── */}
+      {/* ── Features ────────────────────────────────────────
       <section id="features" className="features section py-5">
         <div className="container section-title text-center mb-5" data-aos="fade-up">
           <h2 className="fw-bold">Features</h2>
@@ -164,27 +414,41 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* ── CTA / Request Demo ────────────────────────────── */}
-      <section id="cta" className="cta-section py-5">
-        <div className="container">
-          <div className="cta-card text-center p-5">
-            <h2 className="fw-bold mb-3 text-white">Ready to get started?</h2>
-            <p className="mb-4" style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem' }}>
-              Join hundreds of investors and institutions already using Plutus Digital Asset Platform.
-            </p>
-            <div className="d-flex gap-3 justify-content-center flex-wrap">
-              <a href="/login" className="btn-cta-white">
-                Access Platform
-              </a>
-              <a href="/contact" className="btn-cta-outline">
-                Request a Demo
-              </a>
+      {/* ── FAQ ────────────────────────────────────────────– */}
+      <section className="faq-custom section py-5">
+        <div className="container" data-aos="fade-up">
+          <div className="faq-header text-center mb-5">
+            <span className="faq-label">FAQ</span>
+            <h2 className="fw-bold mt-3">Frequently Asked <span className="text-gradient">Questions</span></h2>
+            <p className="text-muted mt-3">Find answers to some of the most common questions about our digital marketing services.</p>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="faq-container">
+                {faqItems.map((item, index) => (
+                  <div key={index} className={`faq-item ${expandedFAQ === index ? 'active' : ''}`}>
+                    <div className="faq-header-item" onClick={() => toggleFAQ(index)}>
+                      <h4 className="faq-question">{item.question}</h4>
+                      <span className="faq-toggle">
+                        <i className="bi bi-plus-lg"></i>
+                      </span>
+                    </div>
+                    {expandedFAQ === index && (
+                      <div className="faq-answer">
+                        <p>{item.answer}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
+
     </main>
   )
 }

@@ -1,94 +1,180 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 
 export default function TopNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20
+      setScrolled(isScrolled)
+      if (isScrolled) {
+        // close any open dropdowns when user scrolls
+        setServicesOpen(false)
+        setMobileServicesOpen(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location])
 
   return (
-    <header className="site-header position-absolute w-100 d-flex align-items-center flex-column">
-      {/* Top info bar */}
-      <div className="topinfo-bar w-100 d-none d-lg-block">
-        <div className="container-fluid px-4">
-          <div className="row align-items-center">
-            <div className="col-lg-8 text-start">
-              <a href="mailto:sales@plutusdigitalasset.com" className="topinfo-link">
-                <i className="bi bi-envelope-fill me-2"></i>
-                sales@plutusdigitalasset.com
-              </a>
-            </div>
-            <div className="col-lg-4 text-end">
-              <div className="social-icons">
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Facebook">
-                  <i className="bi bi-facebook"></i>
-                </a>
-                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Twitter">
-                  <i className="bi bi-twitter-x"></i>
-                </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
-                  <i className="bi bi-instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
-                  <i className="bi bi-linkedin"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+    <header className={`site-header${scrolled ? ' scrolled' : ''}`}>
+      <div className="nav-container">
+        {/* Brand */}
+        <NavLink className="brand-mark" to="/">
+          <img
+            src="/plutus-logo.png"
+            alt="Plutus Digital Asset Logo"
+            className="brand-logo"
+          />
+          <span className="sitename">Plutus <span className="sitename-accent">Digital</span></span>
+        </NavLink>
+
+        {/* Desktop Nav */}
+        <nav className="navmenu d-none d-lg-flex">
+          <ul>
+            <li>
+              <NavLink to="/" end>
+                Home
+              </NavLink>
+            </li>
+            {/* <li>
+              <NavLink to="/about">
+                About Us
+              </NavLink>
+            </li> */}
+            <li
+              className={`nav-item-has-dropdown${servicesOpen ? ' open' : ''}`}
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button className="nav-dropdown-toggle" aria-expanded={servicesOpen}>
+                Services Hub <i className="bi bi-caret-down-fill ms-2" />
+              </button>
+              <ul className="dropdown-menu">
+                <li><NavLink to="/services/seo">SEO</NavLink></li>
+                <li><NavLink to="/services/social-media">Social Media Marketing</NavLink></li>
+                <li><NavLink to="/services/content">Content Creation</NavLink></li>
+                <li><NavLink to="/services/branding">Branding & Design</NavLink></li>
+                <li><NavLink to="/services/web">Web Development</NavLink></li>
+                <li><NavLink to="/services/performance">Performance Marketing</NavLink></li>
+              </ul>
+            </li>
+            <li>
+              <NavLink to="/political">
+                Political
+              </NavLink>
+            </li>
+            {/* <li>
+              <NavLink to="/blogs">
+                Blogs
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact">
+                Contact Us
+              </NavLink>
+            </li> */}
+          </ul>
+        </nav>
+
+        {/* Right Side Actions */}
+        <div className="nav-actions d-flex align-items-center gap-3">
+          <NavLink to="/login" className="nav-login-btn d-none d-lg-flex">
+            <i className="bi bi-person me-1"></i> Login
+          </NavLink>
+          <NavLink to="/contact" className="nav-cta-btn d-none d-lg-flex">
+            Try It Free <i className="bi bi-arrow-right ms-2"></i>
+          </NavLink>
+          <button type="button" className="nav-icon-btn d-none d-lg-flex" aria-label="More actions">
+            <i className="bi bi-grid-3x3-gap"></i>
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            className={`mobile-toggle d-lg-none${menuOpen ? ' open' : ''}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span className="burger-line"></span>
+            <span className="burger-line"></span>
+            <span className="burger-line"></span>
+          </button>
         </div>
       </div>
 
-      {/* Main nav */}
-      <div className="nav-main w-100">
-        <div className="container-xl d-flex align-items-center justify-content-between py-3">
-          <NavLink className="brand-mark d-flex align-items-center gap-2 text-decoration-none" to="/">
-            <img
-              src="https://plutusdigitalasset.com/assets/img/logo.png"
-              alt="Plutus Digital Asset Logo"
-              className="brand-logo"
-            />
-            <span className="sitename">Plutus Digital Asset</span>
+      {/* Mobile menu */}
+      <div className={`mobile-nav${menuOpen ? ' is-open' : ''}`}>
+          <div className="mobile-nav-inner">
+          <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <i className="bi bi-x-lg"></i>
+          </button>
+          <ul>
+            <li>
+              <NavLink to="/" end>
+                Home
+                <i className="bi bi-chevron-right ms-2" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">
+                About Us
+                <i className="bi bi-chevron-right ms-2" />
+              </NavLink>
+            </li>
+            <li className={`mobile-has-submenu ${mobileServicesOpen ? ' open' : ''}`}>
+              <button className="mobile-submenu-toggle" onClick={() => setMobileServicesOpen(s => !s)} aria-expanded={mobileServicesOpen}>
+                Services Hub <i className="bi bi-caret-down-fill ms-2" />
+              </button>
+              <ul className={`mobile-submenu ${mobileServicesOpen ? ' open' : ''}`}>
+                <li><NavLink to="/services/seo">SEO</NavLink></li>
+                <li><NavLink to="/services/social-media">Social Media Marketing</NavLink></li>
+                <li><NavLink to="/services/content">Content Creation</NavLink></li>
+                <li><NavLink to="/services/branding">Branding & Design</NavLink></li>
+                <li><NavLink to="/services/web">Web Development</NavLink></li>
+                <li><NavLink to="/services/performance">Performance Marketing</NavLink></li>
+              </ul>
+            </li>
+            <li>
+              <NavLink to="/political">
+                Political
+                <i className="bi bi-chevron-right ms-2" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/blogs">
+                Blogs
+                <i className="bi bi-chevron-right ms-2" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact">
+                Contact
+                <i className="bi bi-chevron-right ms-2" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/login">
+                Login
+                <i className="bi bi-chevron-right ms-2" />
+              </NavLink>
+            </li>
+          </ul>
+          <NavLink to="/contact" className="mobile-cta-btn" onClick={() => setMenuOpen(false)}>
+            Request Demo <i className="bi bi-arrow-right ms-2"></i>
           </NavLink>
-
-          {/* Desktop nav */}
-          <nav className="navmenu d-none d-lg-block">
-            <ul>
-              <li><NavLink to="/" end>Home</NavLink></li>
-              <li><NavLink to="/platform">Platform</NavLink></li>
-              <li><NavLink to="/solutions">Solutions</NavLink></li>
-              <li><NavLink to="/login">Login</NavLink></li>
-            </ul>
-          </nav>
-
-          <div className="d-flex align-items-center gap-3">
-            <NavLink className="btn-request-demo d-none d-lg-inline-flex" to="/contact">
-              Request Demo
-            </NavLink>
-            {/* Mobile hamburger */}
-            <button
-              className="mobile-toggle d-lg-none"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
-            >
-              <i className={`bi ${menuOpen ? 'bi-x-lg' : 'bi-list'}`}></i>
-            </button>
-          </div>
         </div>
-
-        {/* Mobile menu */}
-        {menuOpen && (
-          <div className="mobile-nav">
-            <ul>
-              <li><NavLink to="/" end onClick={() => setMenuOpen(false)}>Home</NavLink></li>
-              <li><NavLink to="/platform" onClick={() => setMenuOpen(false)}>Platform</NavLink></li>
-              <li><NavLink to="/solutions" onClick={() => setMenuOpen(false)}>Solutions</NavLink></li>
-              <li><NavLink to="/login" onClick={() => setMenuOpen(false)}>Login</NavLink></li>
-              <li>
-                <NavLink to="/contact" className="btn-request-demo d-inline-block mt-2" onClick={() => setMenuOpen(false)}>
-                  Request Demo
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
     </header>
   )

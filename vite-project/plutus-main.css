@@ -29,7 +29,7 @@
     /* Background color for the entire website, including individual sections */
     --default-color: #444444;
     /* Default color used for the majority of the text content across the entire website */
-    --heading-color: #012970;
+    --heading-color: #041836;
     /* Color for headings, subheadings and title throughout the website */
     --accent-color: #4154f1;
     /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
@@ -2973,6 +2973,418 @@ canvas {
 .count-particles {
     border-radius: 0 0 3px 3px;
 }
+
+/*--------------------------------------------------------------
+# FAQ Section
+--------------------------------------------------------------*/
+
+.faq-custom {
+    background-color: var(--background-color);
+}
+
+.faq-custom .faq-label {
+    display: inline-block;
+    background: color-mix(in srgb, var(--default-color), transparent 95%);
+    color: var(--default-color);
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 6px 16px;
+    text-transform: uppercase;
+    border-radius: 50px;
+}
+
+.faq-custom .faq-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+.faq-custom .text-gradient {
+    color: var(--accent-color);
+}
+
+.faq-custom .faq-header p {
+    font-size: 16px;
+    color: color-mix(in srgb, var(--default-color), transparent 30%);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faq-container {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: 0px 0 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.faq-item {
+    border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+    transition: 0.3s;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item.active {
+    background-color: color-mix(in srgb, var(--accent-color), transparent 98%);
+}
+
+.faq-header-item {
+    padding: 25px 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.faq-header-item:hover {
+    background-color: color-mix(in srgb, var(--default-color), transparent 98%);
+}
+
+.faq-item.active .faq-header-item {
+    background-color: color-mix(in srgb, var(--accent-color), transparent 98%);
+}
+
+.faq-question {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.faq-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent-color), transparent 95%);
+    color: var(--accent-color);
+    font-size: 18px;
+    transition: 0.3s;
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.faq-item.active .faq-toggle {
+    background: var(--accent-color);
+    color: var(--contrast-color);
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    padding: 0 30px 25px 30px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.faq-answer p {
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+    font-size: 15px;
+    line-height: 26px;
+    margin: 0;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .faq-custom .faq-header h2 {
+        font-size: 24px;
+    }
+
+    .faq-header-item {
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .faq-question {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .faq-toggle {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    .faq-answer {
+        padding: 0 20px 20px 20px;
+    }
+}
+
+
+/*--------------------------------------------------------------
+# Reviews Section
+--------------------------------------------------------------*/
+
+.reviews-section {
+    background-color: var(--background-color);
+}
+
+.reviews-section .review-emoji {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.reviews-section .reviews-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--heading-color);
+}
+
+.reviews-section .text-gradient {
+    color: var(--accent-color);
+}
+
+.reviews-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.reviews-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 30px;
+}
+
+.review-card-wrapper {
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: calc(33.333% - 20px);
+}
+
+.review-card {
+    background-color: var(--surface-color);
+    box-shadow: 0px 0 20px rgba(0, 0, 0, 0.08);
+    padding: 35px 30px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-card:hover {
+    box-shadow: 0px 0 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+}
+
+.review-stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.review-stars i {
+    color: #ffc107;
+}
+
+.review-text {
+    font-size: 16px;
+    line-height: 26px;
+    color: color-mix(in srgb, var(--default-color), transparent 10%);
+    font-style: italic;
+}
+
+.review-author {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-color);
+}
+
+.review-author .author-info h5 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+.reviews-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.reviews-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--default-color), transparent 90%);
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0;
+}
+
+.reviews-dots .dot:hover {
+    background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+.reviews-dots .dot.active {
+    background: var(--accent-color);
+    width: 30px;
+    border-radius: 6px;
+}
+
+@media (max-width: 1024px) {
+    .review-card-wrapper {
+        flex: 0 0 calc(50% - 15px);
+        min-width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    .review-card-wrapper {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+
+    .reviews-section .reviews-header h2 {
+        font-size: 24px;
+    }
+
+    .review-card {
+        padding: 25px 20px;
+    }
+
+    .review-text {
+        font-size: 14px;
+    }
+}
+
+
+/*--------------------------------------------------------------
+# Featured Projects Section
+--------------------------------------------------------------*/
+
+.featured-projects {
+    background-color: var(--background-color);
+}
+
+.featured-projects .projects-header {
+    margin-bottom: 50px;
+}
+
+.featured-projects .project-pill {
+    display: inline-block;
+    background: color-mix(in srgb, var(--accent-color), transparent 90%);
+    color: var(--accent-color);
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 8px 20px;
+    margin: 0;
+    text-transform: uppercase;
+    border-radius: 50px;
+    font-family: var(--default-font);
+    margin-bottom: 15px;
+}
+
+.featured-projects .projects-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--heading-color);
+}
+
+.featured-projects .text-gradient {
+    color: var(--accent-color);
+}
+
+.featured-projects .project-card {
+    background-color: var(--surface-color);
+    box-shadow: 0px 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 25px;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 8px;
+    height: 100%;
+    border-top: 4px solid transparent;
+}
+
+.featured-projects .project-card:hover {
+    box-shadow: 0px 0 30px rgba(0, 0, 0, 0.15);
+    border-top-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+
+.featured-projects .project-card-header {
+    margin-bottom: 20px;
+}
+
+.featured-projects .project-card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.featured-projects .project-card-img img {
+    max-width: 100%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.featured-projects .project-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.featured-projects .project-card-desc {
+    font-size: 15px;
+    line-height: 24px;
+    color: color-mix(in srgb, var(--default-color), transparent 30%);
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .featured-projects .project-card {
+        padding: 25px 20px;
+    }
+
+    .featured-projects .projects-header h2 {
+        font-size: 24px;
+    }
+
+    .featured-projects .project-card-title {
+        font-size: 18px;
+    }
+
+    .featured-projects .project-card-desc {
+        font-size: 14px;
+    }
+}
+
 
 .footerlogo {
     min-height: 2em;
