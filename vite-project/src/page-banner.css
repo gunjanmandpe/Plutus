@@ -165,11 +165,11 @@
   }
 
   .page-banner.political-banner {
-    min-height: 320px;
+    min-height: 190px;
   }
 
   .page-banner.political-banner .page-banner-img {
-    height: 320px;
+    height: 190px;
     object-fit: cover;
   }
 

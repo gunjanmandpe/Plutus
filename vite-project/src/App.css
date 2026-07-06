@@ -378,6 +378,11 @@ html, body, .main, .container {
   transition: all 0.25s ease;
 }
 
+/* Hide the extra action box next to Try It Free on desktop while keeping the navbar layout intact */
+.nav-icon-btn.d-none.d-lg-flex {
+  display: none !important;
+}
+
 .nav-icon-btn:hover {
   background: rgba(255, 255, 255, 0.22);
 }

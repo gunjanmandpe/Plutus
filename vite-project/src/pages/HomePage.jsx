@@ -261,12 +261,12 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="dg-about-circle-badge mt-5" data-aos="fade-up" data-aos-delay="360">
+                {/* <div className="dg-about-circle-badge mt-5" data-aos="fade-up" data-aos-delay="360">
                   <div className="dg-about-circle-inner">
                     <i className="bi bi-rocket-fill"></i>
                   </div>
                   <div className="dg-about-circle-text">ABOUT US • SEOFIN • ABOUT US</div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

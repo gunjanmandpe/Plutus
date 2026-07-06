@@ -475,6 +475,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
   transform: translateY(32px);
   animation: projectSlideUp 0.95s ease forwards;
+  text-align: center;
 }
 
 .project-card:hover {
@@ -483,10 +484,26 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(232, 5, 102, 0.18);
 }
 
+.project-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 0;
+}
+
+.project-card-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .project-card-img img {
   max-height: 80px;
   width: auto;
   object-fit: contain;
+  margin: 0 auto;
 }
 
 .featured-projects .col-lg-4:nth-child(1) .project-card { animation-delay: 0.12s; }
