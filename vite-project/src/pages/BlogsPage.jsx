@@ -1,6 +1,7 @@
 // src/pages/BlogsPage.jsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import PageBanner from '../components/PageBanner'
 
 /* --------------------------------------------------------------
    Static data
@@ -29,6 +30,7 @@ const blogs = [
     avatar: "RS",
     color: "#6366f1",
     featured: true,
+    image: '/Future of digital marketing.webp',
   },
   {
     id: 2,
@@ -43,6 +45,7 @@ const blogs = [
     avatar: "SP",
     color: "#8b5cf6",
     featured: false,
+    image: '/SEO-in-2025.webp',
   },
   {
     id: 3,
@@ -57,6 +60,7 @@ const blogs = [
     avatar: "PM",
     color: "#a78bfa",
     featured: false,
+    image: '/hero-slide-3.png',
   },
   {
     id: 4,
@@ -71,6 +75,7 @@ const blogs = [
     avatar: "AK",
     color: "#7c3aed",
     featured: false,
+    image: '/creative1.jpeg',
   },
   {
     id: 5,
@@ -85,6 +90,7 @@ const blogs = [
     avatar: "RS",
     color: "#6366f1",
     featured: false,
+    image: '/parliament-01.png',
   },
   {
     id: 6,
@@ -99,7 +105,18 @@ const blogs = [
     avatar: "PM",
     color: "#8b5cf6",
     featured: false,
+    image: '/your-busines-is-a-movie.webp',
   },
+];
+
+const tags = [
+  'Agency',
+  'Business',
+  'Digital',
+  'Marketing',
+  'Startup',
+  'Technology',
+  'Trendy',
 ];
 
 const catColors = {
@@ -116,194 +133,186 @@ const catColors = {
 ---------------------------------------------------------------- */
 export default function BlogsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered =
-    activeCategory === "All"
-      ? blogs
-      : blogs.filter((b) => b.category === activeCategory);
+  const normalizedQuery = searchQuery.trim().toLowerCase();
 
-  const featured = blogs.find((b) => b.featured);
-  const rest = filtered.filter((b) => !b.featured);
+  const filtered = blogs.filter((blog) => {
+    const matchesCategory = activeCategory === "All" || blog.category === activeCategory;
+    const matchesSearch =
+      normalizedQuery.length === 0 ||
+      [blog.title, blog.excerpt, blog.category, blog.author]
+        .join(" ")
+        .toLowerCase()
+        .includes(normalizedQuery);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  const recentPosts = blogs.slice(0, 4);
+
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll('.blog-list-item'));
+
+    if (!cards.length) return;
+
+    cards.forEach((card, index) => {
+      card.classList.remove('is-visible');
+      card.style.transitionDelay = `${index * 80}ms`;
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach((card) => card.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [filtered.length, activeCategory, normalizedQuery]);
 
   return (
     <main className="blog-page">
 
-      {/* ====================== HERO ====================== */}
-      <section className="blog-hero">
-        <div className="blog-hero-bg" />
-        <div className="container position-relative" style={{ zIndex: 2 }}>
-          <div className="blog-hero-inner text-center">
-            <div className="blog-badge" data-aos="fade-down">
-              <i className="bi bi-journal-richtext me-2" />
-              Our Blog
-            </div>
-            <h1 className="blog-hero-title" data-aos="fade-up" data-aos-delay="100">
-              Insights, Strategies &amp;<br />
-              <span className="blog-gradient">Digital Marketing Wisdom</span>
-            </h1>
-            <p className="blog-hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-              Stay ahead with expert articles on digital marketing, SEO, social media,
-              branding, political campaigns, and the latest industry trends.
-            </p>
-          </div>
-        </div>
-        <div className="blog-breadcrumb">
-          <NavLink to="/" className="breadcrumb-link">
-            HOME
-          </NavLink>
-          <span className="breadcrumb-separator">/</span>
-          <span className="breadcrumb-current">BLOGS</span>
-        </div>
-      </section>
+      {/* Shared banner */}
+      <PageBanner title="Blogs" breadcrumbs={[{ label: 'Blogs' }]} />
 
-      {/* ================== FEATURED POST ================== */}
-      {featured && activeCategory === "All" && (
-        <section className="blog-featured section pt-6 pb-3">
-          <div className="container">
-            <div className="blog-section-label mb-4" data-aos="fade-up">
-              Featured Article
-            </div>
-
-            <div className="blog-featured-card" data-aos="fade-up" data-aos-delay="100">
-              <div
-                className="blog-featured-badge"
-                style={{ background: catColors[featured.category] }}
-              >
-                {featured.category}
-              </div>
-
-              <h2 className="blog-featured-title">{featured.title}</h2>
-              <p className="blog-featured-excerpt">{featured.excerpt}</p>
-
-              <div className="blog-featured-meta">
-                <div className="blog-author">
-                  <div
-                    className="blog-author-avatar"
-                    style={{ "--ac": featured.color }}
-                  >
-                    {featured.avatar}
-                  </div>
-
-                  <div>
-                    <div className="blog-author-name">{featured.author}</div>
-                    <div className="blog-author-role">{featured.authorRole}</div>
-                  </div>
-                </div>
-
-                <div className="blog-meta-right">
-                  <span>
-                    <i className="bi bi-calendar3 me-1" />
-                    {featured.date}
-                  </span>
-                  <span>
-                    <i className="bi bi-clock me-1" />
-                    {featured.readTime}
-                  </span>
-                </div>
-              </div>
-
-              <button className="blog-read-btn">
-                Read Article <i className="bi bi-arrow-right ms-2" />
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===================== BLOG GRID ===================== */}
-      <section className="blog-grid-section section py-5">
+      {/* ===================== BLOG LIST + SIDEBAR ===================== */}
+      <section className="blog-list-section section py-5">
         <div className="container">
-
-          {/* Category filter */}
-          <div className="blog-category-filter mb-5" data-aos="fade-up">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`blog-cat-btn ${activeCategory === cat ? "active" : ""}`}
-                onClick={() => setActiveCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Card list */}
-          <div className="row g-4">
-            {rest.map((blog, i) => (
-              <div
-                className="col-lg-4 col-md-6"
-                key={blog.id}
-                data-aos="fade-up"
-                data-aos-delay={i * 80}
-              >
-                <div className="blog-card">
-                  <div className="blog-card-header">
-                    <span
-                      className="blog-card-category"
-                      style={{
-                        "--bc": catColors[blog.category] || "#6366f1",
-                      }}
-                    >
-                      {blog.category}
-                    </span>
-
-                    <span className="blog-card-readtime">
-                      <i className="bi bi-clock me-1" />
-                      {blog.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="blog-card-title">{blog.title}</h3>
-                  <p className="blog-card-excerpt">{blog.excerpt}</p>
-
-                  <div className="blog-card-footer">
-                    <div className="blog-card-author">
-                      <div
-                        className="blog-card-avatar"
-                        style={{ "--bc": blog.color }}
-                      >
-                        {blog.avatar}
+          <div className="row gy-4">
+            <div className="col-lg-8" data-aos="fade-up" data-aos-delay="80">
+              <div className="blog-list" data-aos="fade-up" data-aos-delay="100">
+                {filtered.map((blog, index) => (
+                  <article
+                    key={blog.id}
+                    className="blog-list-item"
+                  >
+                    {blog.image && (
+                      <div className="blog-list-image">
+                        <img src={blog.image} alt={blog.title} />
                       </div>
-
-                      <div>
-                        <div className="blog-card-author-name">{blog.author}</div>
-                        <div className="blog-card-date">{blog.date}</div>
+                    )}
+                    <div className="blog-list-body">
+                      <div className="blog-list-top">
+                        <span className="blog-list-category">{blog.category}</span>
+                        <span className="blog-list-author">By {blog.author}</span>
+                        <span className="blog-list-date">{blog.date}</span>
+                      </div>
+                      <h3 className="blog-list-title">{blog.title}</h3>
+                      <p className="blog-list-excerpt">{blog.excerpt}</p>
+                      <div className="blog-list-footer">
+                        <button type="button" className="blog-card-link">
+                          Read More <i className="bi bi-arrow-right ms-1" />
+                        </button>
+                        <span className="blog-list-readtime">{blog.readTime}</span>
                       </div>
                     </div>
+                  </article>
+                ))}
+              </div>
 
-                    <button className="blog-card-link" aria-label="Read more">
-                      <i className="bi bi-arrow-right" />
+              {filtered.length === 0 && (
+                <div className="blog-empty text-center py-5" data-aos="fade-up">
+                  <i
+                    className="bi bi-journal-x"
+                    style={{ fontSize: "3rem", color: "rgba(232, 5, 102, 0.35)" }}
+                  />
+                  <p style={{ color: "#6b7280", marginTop: "1rem" }}>
+                    {searchQuery ? "No posts match your search yet." : "No posts in this category yet."}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <aside className="col-lg-4">
+              <div className="blog-sidebar">
+                <div className="blog-sidebar-widget" data-aos="fade-up" data-aos-delay="40">
+                  <div className="sidebar-widget-title">Search</div>
+                  <div className="blog-search-wrap">
+                    <input
+                      type="search"
+                      className="blog-search-input"
+                      placeholder="Search blogs"
+                      value={searchQuery}
+                      onChange={(event) => setSearchQuery(event.target.value)}
+                      data-aos="fade-up"
+                      data-aos-delay="120"
+                    />
+                    <button type="button" className="blog-search-btn" data-aos="zoom-in" data-aos-delay="140">
+                      <i className="bi bi-search" />
                     </button>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* Empty state */}
-          {filtered.length === 0 && (
-            <div className="blog-empty text-center py-5" data-aos="fade-up">
-              <i
-                className="bi bi-journal-x"
-                style={{ fontSize: "3rem", color: "rgba(255,255,255,0.2)" }}
-              />
-              <p style={{ color: "rgba(255,255,255,0.4)", marginTop: "1rem" }}>
-                No posts in this category yet.
-              </p>
-            </div>
-          )}
+                <div className="blog-sidebar-widget" data-aos="fade-up" data-aos-delay="80">
+                  <div className="sidebar-widget-title">Recent Posts</div>
+                  <div className="blog-recent-list">
+                    {recentPosts.map((post, index) => (
+                      <a key={post.id} href="#" className="blog-recent-item" data-aos="fade-up" data-aos-delay={140 + index * 40}>
+                        <span>{post.title}</span>
+                        <small>{post.date}</small>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="blog-sidebar-widget" data-aos="fade-up" data-aos-delay="120">
+                  <div className="sidebar-widget-title">Categories</div>
+                  <ul className="blog-sidebar-cats">
+                    {categories.filter((cat) => cat !== 'All').map((cat, index) => (
+                      <li key={cat}>
+                        <button
+                          data-aos="fade-up"
+                          data-aos-delay={180 + index * 40}
+                          type="button"
+                          className={`blog-sidebar-cat-link ${activeCategory === cat ? 'active' : ''}`}
+                          onClick={() => setActiveCategory(cat)}
+                        >
+                          {cat}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="blog-sidebar-widget" data-aos="fade-up" data-aos-delay="160">
+                  <div className="sidebar-widget-title">Tags</div>
+                  <div className="blog-tags-wrap">
+                    {tags.map((tag, index) => (
+                      <button type="button" key={tag} className="blog-tag-pill" data-aos="fade-up" data-aos-delay={220 + index * 30}>
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
       {/* ================== NEWSLETTER CTA ================== */}
       <section className="blog-newsletter section py-6">
         <div className="container">
-          <div className="blog-newsletter-inner" data-aos="zoom-in">
+          <div className="blog-newsletter-inner" data-aos="zoom-in" data-aos-delay="80">
             <div className="blog-newsletter-glow" />
             <div className="blog-newsletter-content text-center">
               <div className="blog-section-label">Stay Updated</div>
               <h2 className="blog-newsletter-title">
-                Get Marketing Insights{" "}
+                Get Marketing Insights{' '}
                 <span className="blog-gradient">Delivered Weekly</span>
               </h2>
               <p className="blog-newsletter-text">
@@ -316,8 +325,10 @@ export default function BlogsPage() {
                   type="email"
                   placeholder="Enter your email address..."
                   className="blog-newsletter-input"
+                  data-aos="fade-up"
+                  data-aos-delay="140"
                 />
-                <button className="blog-newsletter-btn">
+                <button className="blog-newsletter-btn" data-aos="fade-up" data-aos-delay="180">
                   Subscribe <i className="bi bi-send-fill ms-2" />
                 </button>
               </div>

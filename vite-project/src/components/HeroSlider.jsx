@@ -1,45 +1,66 @@
-const bgImage = '/hero-slide-1.webp'
+import { useEffect, useState } from 'react'
 
 export default function HeroSlider() {
+  const heroSlides = [
+    {
+      src: '/hero-slide-1.png',
+      badge: 'Trusted SEO & Marketing Experts',
+      title: ['Boost Your SEO', 'Marketing', 'Save Time Effortlessly'],
+      description: 'Drive more traffic, improve search rankings, and increase conversions with our professional SEO solutions. From on-page optimization to link building.',
+    },
+    {
+      src: '/hero-slide-2.png',
+      badge: 'Performance-Driven Creative Strategy',
+      title: ['Grow Your Brand', 'With Smart Campaigns', 'And Faster Results'],
+      description: 'Create impactful campaigns, sharpen your online presence, and convert attention into measurable growth for your business.',
+    },
+    {
+      src: '/hero-slide-3.png',
+      badge: 'Digital Growth Made Simple',
+      title: ['Scale Visibility', 'Across Every Channel', 'With Confidence'],
+      description: 'From SEO to social and content strategy, we build a digital presence that stays visible and keeps delivering.',
+    },
+  ]
+
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % heroSlides.length)
+    }, 5000)
+
+    return () => window.clearInterval(interval)
+  }, [heroSlides.length])
+
+  const heroSlide = heroSlides[activeIndex]
+
   return (
-    <div className="dg-hero">
-      <section id="hero" className="dg-content container position-relative">
-        <div className="row gy-4 align-items-center">
-          <div className="col-lg-6 order-1 order-lg-1 d-flex flex-column justify-content-center hero-copy pe-lg-5">
-            <span className="hero-badge">Trusted SEO & Marketing Experts</span>
-            <h1 className="fw-bold" data-aos="fade-up">
-              Boost Your SEO
-              <br />
-              Marketing <span className="hero-icon-block"><i className="bi bi-target"></i></span> Save
-              <br />
-              Time <span className="hero-icon-block"><i className="bi bi-rocket-fill"></i></span> Effortlessly
-            </h1>
-            <p className="mb-4" data-aos="fade-up" data-aos-delay="100">
-              Drive more traffic, improve search rankings, and increase conversions with our professional SEO solutions. From on-page optimization to link building.
-            </p>
-            <div className="hero-btns" data-aos="fade-up" data-aos-delay="200">
-              <a href="/contact" className="btn-hero-primary">
-                Get Started Now <i className="bi bi-arrow-right ms-2"></i>
-              </a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" target="_blank" rel="noopener noreferrer" className="btn-hero-outline hero-play-btn">
-                <i className="bi bi-play-fill"></i>
-              </a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" target="_blank" rel="noopener noreferrer" className="hero-link">
-                WATCH DEMO
-              </a>
-            </div>
-          </div>
-          <div className="col-lg-6 order-2 order-lg-2 hero-img text-center" data-aos="zoom-out">
-            <img
-              src="/hero-01.webp"
-              className="img-fluid floating-img"
-              alt="Plutus platform interface"
-              style={{ maxWidth: '440px' }}
-            />
+    <div className="dg-hero hero-bg-slider">
+      <div className="hero-bg-slide">
+        <img key={heroSlide.src} src={heroSlide.src} alt={heroSlide.badge} />
+      </div>
+
+      <div className="dg-overlay"></div>
+
+      <div className="container position-relative">
+        <div className="hero-copy text-white">
+          <span className="hero-badge">{heroSlide.badge}</span>
+          <h1 className="fw-bold">
+            {heroSlide.title.map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </h1>
+          <p className="mb-4">{heroSlide.description}</p>
+          <div className="hero-btns">
+            <a href="/contact" className="btn-hero-primary">
+              Get Started Now <i className="bi bi-arrow-right ms-2"></i>
+            </a>
           </div>
         </div>
-      </section>
-
+      </div>
     </div>
   )
 }

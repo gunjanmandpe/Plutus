@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer-bar">
       <div className="container">
-        <div className="row gy-5 mb-5">
+        <div className="row gy-4 mb-3">
           {/* Brand column */}
           <div className="col-lg-4 col-md-6">
             <div className="footer-brand mb-3">
@@ -69,7 +69,7 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-            <NavLink to="/contact" className="btn-request-demo d-inline-block mt-4">
+            <NavLink to="/contact#contact-form" className="btn-request-demo d-inline-block mt-4">
               Request Demo
             </NavLink>
           </div>
@@ -79,16 +79,11 @@ export default function Footer() {
         <div className="footer-divider"></div>
 
         {/* Bottom bar */}
-        <div className="footer-bottom row align-items-center gy-3">
-          <div className="col-md-6 text-center text-md-start">
-            <p className="mb-0">
-              © {new Date().getFullYear()} <strong>Plutus Digital Asset</strong>. All rights reserved.
-            </p>
-          </div>
-          <div className="col-md-6 text-center text-md-end">
-            <p className="mb-0">Secure • Modern • Built for the future of finance.</p>
-          </div>
+        <div className="footer-bottom row align-items-center gy-2">
+          <div className="col-12"></div>
         </div>
+
+        <div className="footer-legal text-center py-2"></div>
       </div>
     </footer>
   )

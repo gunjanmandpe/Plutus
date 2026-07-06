@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import '../political-page.css'
+import PageBanner from '../components/PageBanner'
 
 function useScrollReveal() {
   useEffect(() => {
     const revealOnScroll = () => {
       document
-        .querySelectorAll('.pol-strategy-page .reveal, .pol-strategy-page .reveal-zoom, .pol-strategy-page .reveal-left, .pol-strategy-page .reveal-right')
+        .querySelectorAll('.pol-strategy-page .reveal, .pol-strategy-page .reveal-zoom, .pol-strategy-page .reveal-left, .pol-strategy-page .reveal-right, .pol-strategy-page .card-reveal, .pol-strategy-page .text-reveal, .pol-strategy-page .about-card, .pol-strategy-page .specialty-card, .pol-strategy-page .service-card, .pol-strategy-page .case-block, .pol-strategy-page .strategy-item, .pol-strategy-page .political-hero-feature-card')
         .forEach((el) => {
           if (el.getBoundingClientRect().top < window.innerHeight - 120) {
             el.classList.add('active')
@@ -23,7 +24,13 @@ export default function PoliticalPage() {
 
   return (
     <main className="pol-strategy-page">
-      <img src="/parliament-01.png" className="parliament" alt="Parliament" />
+      <PageBanner
+        title="Political"
+        breadcrumbs={[{ label: 'Political' }]}
+        backgroundImage="/political-hero.png"
+        mobileBackgroundImage="/political-hero-mobile.png"
+        bannerClass="political-banner"
+      />
 
       <div className="marquee-wrapper">
         <div className="marquee-track">
@@ -38,6 +45,7 @@ export default function PoliticalPage() {
 
       <section className="hero">
         <div className="hero-content reveal-left">
+          <span className="hero-kicker">Political Strategy</span>
           <h1>राजकीय विजयासाठी स्मार्ट स्ट्रॅटेजी</h1>
           <p>
             लोकसभा, महापालिका ते जिल्हा परिषद – तुमच्या राजकीय विकासासाठी
@@ -49,32 +57,41 @@ export default function PoliticalPage() {
           </div>
         </div>
         <div className="hero-visual reveal-right">
-          <img src="/political-hero.png" alt="Political strategy" />
+          <div className="hero-visual-card hero-info-card">
+            <div className="hero-visual-badge">Strategy Focus</div>
+            <h3>रणनीती, तंत्रज्ञान आणि नेतृत्वाचा शक्तिशाली संगम</h3>
+            <ul className="hero-feature-list">
+              <li>डेटा-आधारित प्रचार योजना</li>
+              <li>डिजिटल कंटेंट आणि सोशल स्ट्रॅटेजी</li>
+              <li>भू-स्तरीय संवाद आणि मतदार कनेक्ट</li>
+              <li>प्रभावी नेतृत्व आणि संघटनात्मक समर्थन</li>
+            </ul>
+          </div>
         </div>
       </section>
 
       <section className="about-section">
         <div className="about-wrapper">
           <div className="about-left reveal">
-            <span className="about-label">About PLUTUSS</span>
-            <h2>
+            <span className="about-label text-reveal">About PLUTUSS</span>
+            <h2 className="text-reveal">
               रणनीती, तंत्रज्ञान आणि नेतृत्वाचा <br />
               शक्तिशाली संगम
             </h2>
-            <p className="about-intro">
+            <p className="about-intro text-reveal">
               PLUTUSS Digital ही भारतातील अग्रगण्य राजकीय डिजिटल आणि स्ट्रॅटेजी
               एजन्सी आहे. आम्ही लोकसभा, महापालिका, जिल्हा परिषद तसेच इतर निवडणुका
               यशस्वी करण्यासाठी आधुनिक डिजिटल साधने, क्रिएटिव्ह स्ट्रॅटेजी आणि
               विश्लेषणात्मक अंतर्दृष्टी वापरतो.
             </p>
-            <p>
+            <p className="text-reveal">
               आमची कथा राजकीय अनुभव, तंत्रज्ञान आणि सर्जनशीलतेच्या संगमाने तयार
               झाली आहे, ज्यामुळे प्रत्येक उमेदवार आणि पक्षासाठी परिणामकारक अभियान
               राबवता येते.
             </p>
           </div>
           <div className="about-right">
-            <div className="about-card vision-card reveal-zoom">
+            <div className="about-card vision-card reveal-zoom card-reveal">
               <h3>व्हिजन (Our Vision)</h3>
               <p className="quote">
                 “राजकीय नेतृत्वाला डिजिटल सामर्थ्य देणे आणि प्रत्येक उमेदवाराचा
@@ -85,7 +102,7 @@ export default function PoliticalPage() {
                 आहे.
               </p>
             </div>
-            <div className="about-card mission-card reveal-zoom">
+            <div className="about-card mission-card reveal-zoom card-reveal">
               <h3>मिशन (Our Mission)</h3>
               <ul>
                 <li>
@@ -102,9 +119,9 @@ export default function PoliticalPage() {
 
       <section className="experience-section">
         <div className="experience-header">
-          <h2>अनुभव आणि रणनीती</h2>
+          <h2 className="text-reveal">अनुभव आणि रणनीती</h2>
           <div className="experience-tagline">
-            <p>
+            <p className="text-reveal">
               अनुभव, क्रिएटिव्हिटी आणि स्ट्रॅटेजी – PLUTUSS सोबत तुमचे यश
               सुनिश्चित!
             </p>
@@ -127,19 +144,19 @@ export default function PoliticalPage() {
             </ul>
           </div>
           <div className="experience-right reveal-right">
-            <div className="specialty-card">
+            <div className="specialty-card card-reveal">
               <h4>डेटा-चालित रणनीती</h4>
               <p>प्रत्येक निर्णय आणि मोहिमेला डेटा-आधारित दृष्टिकोन</p>
             </div>
-            <div className="specialty-card reveal-zoom">
+            <div className="specialty-card reveal-zoom card-reveal">
               <h4>क्रिएटिव्ह डिजिटल कंटेंट</h4>
               <p>व्हिडिओ, ग्राफिक्स, रील्स, सोशल मीडिया</p>
             </div>
-            <div className="specialty-card reveal-zoom">
+            <div className="specialty-card reveal-zoom card-reveal">
               <h4>राजकीय नेटवर्क व संपर्क</h4>
               <p>कार्यकर्ते, मतदार आणि नेत्यांशी मजबूत संबंध</p>
             </div>
-            <div className="specialty-card reveal-zoom">
+            <div className="specialty-card reveal-zoom card-reveal">
               <h4>प्रभावी नेतृत्व व टीमवर्क</h4>
               <p>अनुभवसंपन्न टीमकडून संपूर्ण कॅम्पेन अंमलबजावणी</p>
             </div>
@@ -150,11 +167,11 @@ export default function PoliticalPage() {
       <section className="case-study-section">
         <div className="case-study-wrapper">
           <div className="case-study-header">
-            <span className="case-label">Case Study 01</span>
-            <h2>प्रभाग क्रमांक २० | महानगरपालिका निवडणूक</h2>
-            <p className="party-badge">पक्ष : राष्ट्रवादी काँग्रेस पक्ष (NCP)</p>
+            <span className="case-label text-reveal">Case Study 01</span>
+            <h2 className="text-reveal">प्रभाग क्रमांक २० | महानगरपालिका निवडणूक</h2>
+            <p className="party-badge text-reveal">पक्ष : राष्ट्रवादी काँग्रेस पक्ष (NCP)</p>
           </div>
-          <div className="case-block reveal">
+          <div className="case-block reveal card-reveal">
             <h3>आव्हानांचे विश्लेषण – आमची भूमिका</h3>
             <p>
               प्रभाग क्रमांक २० मधील निवडणूक ही अत्यंत तुल्यबळ आणि चुरशीची आहे,
@@ -169,7 +186,7 @@ export default function PoliticalPage() {
               स्वतंत्र आढावा घेतला.
             </p>
           </div>
-          <div className="case-block reveal">
+          <div className="case-block reveal card-reveal">
             <h3>आमची रणनिती</h3>
             <ul className="strategy-list">
               <li>
@@ -251,11 +268,12 @@ export default function PoliticalPage() {
       <section className="case-study-section">
         <div className="case-study-wrapper">
           <div className="case-study-header">
-            <span className="case-label">Case Study 02</span>
-            <h2>पश्चिम महाराष्ट्र | युवा नेतृत्व प्रतिमा पुनर्स्थापना मोहीम</h2>
-            <p className="party-badge">पक्ष : शिवसेना</p>
-            <p className="confidential-note">
+            <span className="case-label text-reveal">Case Study 02</span>
+            <h2 className="text-reveal">पश्चिम महाराष्ट्र | युवा नेतृत्व प्रतिमा पुनर्स्थापना मोहीम</h2>
+            <p className="party-badge text-reveal">पक्ष : शिवसेना</p>
+            <p className="confidential-note text-reveal">
               * उमेदवाराची ओळख गोपनीय ठेवण्यात आलेली आहे.
+
             </p>
           </div>
           <div className="case-block reveal-zoom">
@@ -366,8 +384,8 @@ export default function PoliticalPage() {
 
       <section className="contact-section" id="contact">
         <div className="contact-header">
-          <h2>संपर्क करा</h2>
-          <p>तुमच्या पुढील विजयासाठी आजच संपर्क साधा</p>
+          <h2 className="text-reveal">संपर्क करा</h2>
+          <p className="text-reveal">तुमच्या पुढील विजयासाठी आजच संपर्क साधा</p>
         </div>
         <div className="contact-wrapper">
           <div className="form-container reveal-left">

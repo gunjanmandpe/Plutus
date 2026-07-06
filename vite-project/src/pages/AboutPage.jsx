@@ -1,4 +1,7 @@
 import { NavLink } from 'react-router-dom'
+import PageBanner from '../components/PageBanner'
+import ClientLogoSection from '../components/ClientLogoSection'
+import { useEffect } from 'react'
 
 const teamMembers = [
   {
@@ -89,41 +92,86 @@ const milestones = [
   { year: '2024', title: '200+ Brands Served', desc: 'Now proudly serving 200+ brands nationwide, from startups to enterprise companies.' },
 ]
 
+const workSteps = [
+  { title: 'Technical Audit', desc: 'Monotonectally optimize granular quality vectors vis-a-vis interdependent.' },
+  { title: 'Technical SEO', desc: 'Completely synthesize one-to-one interfaces vis-a-vis client-focused alignments.' },
+  { title: 'Select Keywords', desc: 'Progressively streamline cooperative sources whereas stand-alone channels.' },
+  { title: 'Demographics', desc: 'Objectively underwhelm one-to-one deliverables whereas impactful solutions.' },
+]
+
+const clientLogos = [
+  '/clients-logo-01.png','/clients-logo-02.png','/clients-logo-03.png','/clients-logo-04.png','/clients-logo-05.png','/clients-logo-06.png','/clients-logo-07.png','/clients-logo-08.png'
+]
+
 export default function AboutPage() {
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll(
+      '.about-value-card, .about-team-card, .about-mv-card, .about-timeline-card, .about-mission-img-wrapper, .about-mission-img-wrapper img, .about-process-card, .clients-logos img, .client-logo-card, .about-section-label, .about-section-title, .about-section-text, .about-section-subtitle, .about-stat-item, .about-cta-inner, .about-cta-content'
+    ))
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view')
+            obs.unobserve(e.target)
+          }
+        })
+      }, { threshold: 0.12 })
+      els.forEach(el => io.observe(el))
+      return () => io.disconnect()
+    } else {
+      els.forEach(el => el.classList.add('in-view'))
+    }
+  }, [])
+
+  useEffect(() => {
+    const statsBar = document.querySelector('.about-stats-bar')
+    if (!statsBar) return
+
+    const animateNumbers = () => {
+      const nums = Array.from(statsBar.querySelectorAll('.about-stat-number'))
+      nums.forEach(el => {
+        const raw = el.dataset.target || el.textContent || ''
+        const digits = parseInt(raw.toString().replace(/[^0-9]/g, ''), 10) || 0
+        const suffix = raw.toString().replace(/[0-9]/g, '')
+        let current = 0
+        const duration = 1200
+        const step = Math.max(1, Math.floor(digits / (duration / 16)))
+        const timer = setInterval(() => {
+          current += step
+          if (current >= digits) {
+            el.textContent = `${digits}${suffix}`
+            clearInterval(timer)
+          } else {
+            el.textContent = `${current}${suffix}`
+          }
+        }, 16)
+      })
+    }
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateNumbers()
+            obs.disconnect()
+          }
+        })
+      }, { threshold: 0.2 })
+      io.observe(statsBar)
+      return () => io.disconnect()
+    } else {
+      animateNumbers()
+    }
+  }, [])
+
   return (
     <main className="about-page">
 
-      {/* HERO */}
-      <section className="about-hero">
-        <div className="about-hero-bg"></div>
-        <div className="container position-relative" style={{ zIndex: 2 }}>
-          <div className="about-hero-inner text-center">
-            <div className="about-badge" data-aos="fade-down">
-              <i className="bi bi-building me-2"></i>Our Story
-            </div>
-            <h1 className="about-hero-title" data-aos="fade-up" data-aos-delay="100">
-              We Are <span className="about-title-gradient">Plutuss Digital</span>
-            </h1>
-            <p className="about-hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-              A passionate team of digital marketers, creatives, and strategists committed to
-              transforming brands and driving measurable growth.
-            </p>
-            <div className="about-hero-cta" data-aos="fade-up" data-aos-delay="300">
-              <NavLink to="/contact" className="about-btn-primary">
-                Work With Us <i className="bi bi-arrow-right ms-2"></i>
-              </NavLink>
-              <NavLink to="/services/seo" className="about-btn-ghost">
-                Our Services <i className="bi bi-grid ms-2"></i>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-        <div className="about-breadcrumb">
-          <NavLink to="/" className="breadcrumb-link">HOME</NavLink>
-          <span className="breadcrumb-separator">/</span>
-          <span className="breadcrumb-current">ABOUT US</span>
-        </div>
-      </section>
+      {/* Banner (shared) */}
+      <PageBanner title="About Us" breadcrumbs={[{ label: 'About Us' }]} />
+
+      {/* (Kept PageBanner above; no extra hero — preserving existing header/banner/footer) */}
 
       {/* STATS BAR */}
       <section className="about-stats-bar">
@@ -144,7 +192,7 @@ export default function AboutPage() {
         <div className="container">
           <div className="row g-5 align-items-center">
             <div className="col-lg-6" data-aos="fade-right">
-              <div className="about-mission-img-wrapper">
+              <div className="about-mission-img-wrapper" data-aos="zoom-in" data-aos-delay="80">
                 <img src="/socialmedia.webp" alt="Our Mission" className="about-mission-img" />
                 <div className="about-mission-badge-float">
                   <i className="bi bi-trophy-fill"></i>
@@ -169,14 +217,14 @@ export default function AboutPage() {
                 complete digital ecosystem tailored to your unique business needs.
               </p>
               <div className="about-mv-cards">
-                <div className="about-mv-card">
+                <div className="about-mv-card" data-aos="fade-up" data-aos-delay="120">
                   <div className="about-mv-icon"><i className="bi bi-bullseye"></i></div>
                   <div>
                     <h4>Our Mission</h4>
                     <p>To empower every brand with the digital tools and strategies needed to stand out and grow.</p>
                   </div>
                 </div>
-                <div className="about-mv-card">
+                <div className="about-mv-card" data-aos="fade-up" data-aos-delay="180">
                   <div className="about-mv-icon"><i className="bi bi-eye-fill"></i></div>
                   <div>
                     <h4>Our Vision</h4>
@@ -228,13 +276,12 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="about-timeline-track">
-            <div className="about-timeline-line"></div>
             {milestones.map((m, i) => (
               <div
-                className={`about-timeline-item ${i % 2 === 0 ? 'tl-left' : 'tl-right'}`}
+                className="about-timeline-item"
                 key={i}
-                data-aos={i % 2 === 0 ? 'fade-right' : 'fade-left'}
-                data-aos-delay={i * 100}
+                data-aos="fade-up"
+                data-aos-delay={i * 120}
               >
                 <div className="about-timeline-dot">
                   <span>{m.year}</span>
@@ -248,6 +295,41 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* WORK PROCESS */}
+      {/* <section className="about-process-section section py-6">
+        <div className="container">
+          <div className="text-center mb-5">
+            <div className="about-section-label">Work Process</div>
+            <h2 className="about-section-title">We follow Few Steps</h2>
+            <p className="about-section-subtitle">Globally reinvent cross-unit human capital whereas virtual catalysts for change.</p>
+          </div>
+          <div className="about-process-layout">
+            <div className="about-process-line"></div>
+            {workSteps.map((s, i) => (
+              <div
+                className={`about-process-item ${i % 2 === 0 ? 'left' : 'right'}`}
+                key={i}
+                data-aos="fade-up"
+                data-aos-delay={i * 80}
+              >
+                <div className="about-process-card">
+                  <div className="process-step-badge">
+                    <span className="process-step-label">Step</span>
+                    <span className="process-step-number">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
+                  <div className="process-step-content">
+                    <h4>{s.title}</h4>
+                    <p>{s.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      <ClientLogoSection />
 
       {/* TEAM */}
       <section className="about-team-section section py-6">
@@ -300,10 +382,10 @@ export default function AboutPage() {
                 Your success story starts with a conversation.
               </p>
               <div className="d-flex gap-3 justify-content-center flex-wrap mt-4">
-                <NavLink to="/contact" className="about-btn-primary">
+                <NavLink to="/contact" className="about-btn-primary" data-aos="fade-up" data-aos-delay="120">
                   Get Free Consultation <i className="bi bi-arrow-right ms-2"></i>
                 </NavLink>
-                <a href="mailto:contact@plutussdigital.com" className="about-btn-ghost">
+                <a href="mailto:contact@plutussdigital.com" className="about-btn-ghost" data-aos="fade-up" data-aos-delay="180">
                   <i className="bi bi-envelope me-2"></i> Email Us
                 </a>
               </div>

@@ -8,8 +8,8 @@ export default function IconCard({
   iconRadius = '50%',
   iconFontSize = '2rem',
   delay = 0,
-  className = "col-lg-4 col-md-6",
-  cardClassName = "content-card h-100 p-4 transition-hover text-center p-lg-5"
+  className = 'col-lg-4 col-md-6',
+  cardClassName = 'content-card icon-card-shell h-100 p-4 transition-hover p-lg-5'
 }) {
   return (
     <div className={className} data-aos="fade-up" data-aos-delay={delay}>
@@ -20,7 +20,7 @@ export default function IconCard({
         >
           <i className={`bi bi-${icon}`}></i>
         </div>
-        <h3 className="mb-3">{title}</h3>
+        <h3 className="mb-3 fw-bold text-dark">{title}</h3>
         <p className="text-muted mb-0">{text}</p>
       </article>
     </div>

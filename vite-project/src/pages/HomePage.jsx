@@ -7,6 +7,7 @@ export default function HomePage() {
   const trackRef = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [testimonialIndex, setTestimonialIndex] = useState(0)
   const [expandedFAQ, setExpandedFAQ] = useState(null)
 
   const serviceSlides = [
@@ -40,6 +41,12 @@ export default function HomePage() {
       image: '/hero-slide-1.webp',
       path: '/services/web',
     },
+    {
+      title: 'Performance Marketing',
+      description: 'Our performance marketing strategies focus on measurable results. Through platforms like Google Ads, Facebook ',
+      image: '/socialmedia.webp',
+      path: '/services/performance',
+    },
   ]
   
   useEffect(() => {
@@ -49,7 +56,6 @@ export default function HomePage() {
     }, 3200)
     return () => clearInterval(id)
   }, [paused, serviceSlides.length])
-
 
   const values = [
     {
@@ -80,25 +86,82 @@ export default function HomePage() {
     {
       name: 'Trimortal Ventures',
       role: 'Founder',
-      image: '/testimonial-1.jpg',
+      image: '/trimortal-logo.png',
       rating: 5,
       text: 'Plutuss Digital gave us exactly what we needed- a clean, modern website and consistent social media presence. Their strategy and support made a real difference.'
     },
     {
       name: 'Royal Court',
       role: 'CEO',
-      image: '/testimonial-2.jpg',
+      image: '/royal-court-logo.png',
       rating: 5,
       text: 'We\'ve seen a great boost in visibility with Plutuss Digital. Their targeted campaigns and social media management helped us attract the right buyers.'
     },
     {
       name: 'Prosumers Solar Pvt. Ltd.',
       role: 'Director',
-      image: '/testimonial-3.jpg',
+      image: '/prosumers-logo.png',
       rating: 5,
       text: 'Plutuss Digital transformed our online presence. From web design to social media, everything was handled with creativity and precision. Truly a game-changer!'
     },
   ]
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTestimonialIndex(prev => (prev + 1) % testimonials.length)
+    }, 2500)
+    return () => clearInterval(id)
+  }, [testimonials.length])
+
+  // Reveal left and right service cards from bottom after mount
+  useEffect(() => {
+    const cols = document.querySelectorAll('.services-grid .big-service-col');
+    const sideIndices = [0, 2];
+
+    const applyReveal = (col) => {
+      const card = col.querySelector('.big-service-card')
+      if (card) {
+        card.classList.remove('reveal-from-bottom')
+        // force reflow then add to restart animation
+        void card.offsetWidth
+        card.classList.add('reveal-from-bottom')
+        // also add fallback active class after a short delay to trigger transitions
+        setTimeout(() => card.classList.add('active-fallback'), 120)
+      }
+      const items = Array.from(col.querySelectorAll('.big-service-list ul li'))
+      items.forEach((it, idx) => {
+        it.classList.remove('reveal-from-bottom-fast')
+        void it.offsetWidth
+        setTimeout(() => {
+          it.classList.add('reveal-from-bottom-fast')
+          setTimeout(() => it.classList.add('active-fallback'), 60 + idx * 40)
+        }, 80 + idx * 60)
+      })
+    }
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            applyReveal(e.target)
+            obs.unobserve(e.target)
+          }
+        })
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' })
+
+      sideIndices.forEach(i => {
+        const col = cols[i]
+        if (col) io.observe(col)
+      })
+      return () => io.disconnect()
+    } else {
+      // fallback: apply immediately
+      sideIndices.forEach(i => {
+        const col = cols[i]
+        if (col) applyReveal(col)
+      })
+    }
+  }, [])
 
   const faqItems = [
     {
@@ -133,23 +196,27 @@ export default function HomePage() {
     ))
   }
 
+  const activeTestimonial = testimonials[testimonialIndex] || testimonials[0]
+
   return (
     <main className="main">
       {/* ── Hero Slider ─────────────────────────────────── */}
       <HeroSlider />
 
       {/* ── About ─────────────────────────────────────────── */}
-      <section id="about" className="about section py-5 dg-about-section">
+      <section id="about" className="about section dg-about-section">
         <div className="container" data-aos="fade-up">
           <div className="row align-items-center gy-5">
             <div className="col-lg-6">
-              <div className="dg-about-img-wrap">
-                <img src="/about-03.jpg" alt="About Plutus" className="dg-about-img" />
+              <div className="dg-about-media" data-aos="zoom-in" data-aos-delay="100">
+                <div className="dg-about-img-wrap">
+                  <img src="/about-03.jpg" alt="About Plutus" className="dg-about-img" />
+                </div>
               </div>
             </div>
 
             <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div className="dg-about-content ps-lg-4">
+              <div className="dg-about-content">
                 <span className="dg-about-pill">
                   <i className="bi bi-info-circle-fill me-2"></i> About Us
                 </span>
@@ -165,30 +232,25 @@ export default function HomePage() {
                 </p>
 
                 <div className="dg-about-list mb-4">
-                  <div className="dg-about-list-item">
-                    <i className="bi bi-check2-circle"></i>
-                    <span>Improve Google rankings and organic traffic</span>
-                  </div>
-                  <div className="dg-about-list-item">
-                    <i className="bi bi-check2-circle"></i>
-                    <span>PPC campaigns for targeted and fast results</span>
-                  </div>
-                  <div className="dg-about-list-item">
-                    <i className="bi bi-check2-circle"></i>
-                    <span>Result-oriented digital marketing strategies</span>
-                  </div>
-                  <div className="dg-about-list-item">
-                    <i className="bi bi-check2-circle"></i>
-                    <span>Conversion Rate Optimization (CRO)</span>
-                  </div>
+                  {[
+                    'Improve Google rankings and organic traffic',
+                    'PPC campaigns for targeted and fast results',
+                    'Result-oriented digital marketing strategies',
+                    'Conversion Rate Optimization (CRO)',
+                  ].map((item, index) => (
+                    <div key={item} className="dg-about-list-item" data-aos="fade-up" data-aos-delay={180 + index * 80}>
+                      <i className="bi bi-check2-circle"></i>
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="dg-about-footer d-flex flex-column flex-sm-row align-items-center gap-3">
-                  <a href="/contact" className="dg-about-primary-btn">
+                  <a href="/contact" className="dg-about-primary-btn" data-aos="fade-up" data-aos-delay="260">
                     Get More Traffic <i className="bi bi-arrow-right ms-2"></i>
                   </a>
 
-                  <div className="dg-about-phone d-flex align-items-center gap-3">
+                  <div className="dg-about-phone d-flex align-items-center gap-3" data-aos="fade-up" data-aos-delay="320">
                     <span className="dg-phone-icon">
                       <i className="bi bi-telephone-fill"></i>
                     </span>
@@ -199,7 +261,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="dg-about-circle-badge mt-5">
+                <div className="dg-about-circle-badge mt-5" data-aos="fade-up" data-aos-delay="360">
                   <div className="dg-about-circle-inner">
                     <i className="bi bi-rocket-fill"></i>
                   </div>
@@ -211,45 +273,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Services Slider (cards with horizontal slide) ───── */}
+      {/* ── Services (three big cards + sub-row) ───── */}
       <section className="services-offer section py-5">
         <div className="container" data-aos="fade-up">
           <div className="services-header text-center mb-5">
-            <span className="service-pill">
-              <i className="bi bi-graph-up me-2"></i> Services We Offer
-            </span>
-            <h2 className="fw-bold">ROI-Focused Digital Marketing & <span className="text-gradient">SEO Services</span></h2>
+            <span className="section-label">Our Services</span>
+            <h2 className="section-title">Digital Growth Services for Every Business</h2>
+            <p className="section-description">From strategy to execution, Plutus Digital crafts premium marketing, creative, and web solutions that drive measurable growth.</p>
           </div>
-
-          <div className="services-slider" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-            <div className="services-track" ref={trackRef} style={{ transform: `translateX(-${activeIndex * (100 / Math.min(3, serviceSlides.length))}%)` }}>
+          <div className="services-grid">
               {serviceSlides.map((s, i) => (
-                <div className="service-slide-col" key={s.title}>
-                  <div className="service-card h-100 text-center py-4 px-3">
-                    <div className="service-card-img-wrapper mb-4">
-                      <img src={s.image} alt={s.title} className="service-card-img" />
+                <div className="big-service-col" key={s.title} data-aos="fade-up" data-aos-delay={i * 80}>
+                  <div
+                    className="big-service-card"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => window.location.href = s.path}
+                  >
+                    <div className="big-service-top">
+                      <div className="big-service-icon">
+                        <img src={s.image} alt={s.title} style={{ width: 72, height: 72, objectFit: 'contain' }} />
+                      </div>
+                      <h3 className="big-service-title">{s.title}</h3>
+                      <p className="big-service-sub">{s.description}</p>
                     </div>
-                    <h3 className="service-card-title mb-3">{s.title}</h3>
-                    <p className="service-card-desc text-muted mb-4">{s.description}</p>
-                    <NavLink to={s.path} className="service-card-link">Learn More <i className="bi bi-arrow-right ms-1"></i></NavLink>
+
+                    <div className="big-service-divider" />
+
+                    <div className="big-service-list p-4">
+                      <ul>
+                        <li><i className="bi bi-arrow-return-right me-2"></i> Diversity Business</li>
+                        <li><i className="bi bi-arrow-return-right me-2"></i> Risk Management</li>
+                        <li><i className="bi bi-arrow-return-right me-2"></i> Certificated Company</li>
+                      </ul>
+                      <span className="big-service-arrow"> <i className="bi bi-arrow-up-right-circle"></i> </span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* autoplay controls removed; slider advances automatically */}
           </div>
-        </div>
       </section>
 
       {/* ── Featured Projects ────────────────────────────── */}
       <section className="featured-projects section py-5">
         <div className="container" data-aos="fade-up">
           <div className="projects-header text-center mb-5">
-            <span className="project-pill">
-              <i className="bi bi-star-fill me-2"></i> Featured Projects
-            </span>
-            <h2 className="fw-bold">Work We're <span className="text-gradient">Proud Of</span></h2>
+            <span className="section-label">Featured Projects</span>
+            <h2 className="section-title">Work We're <span className="text-gradient">Proud Of</span></h2>
+            <p className="section-description">Browse a selection of our most impactful campaigns and digital experiences built for real business results.</p>
           </div>
 
           <div className="row gy-4">
@@ -294,50 +366,50 @@ export default function HomePage() {
 
       {/* ── Reviews From Clients ────────────────────────── */}
       <section className="reviews-section section py-5">
+        <div className="review-full-width-pink" />
         <div className="container" data-aos="fade-up">
-          <div className="reviews-header text-center mb-5" data-aos="fade-up">
-            <h2 className="display-4 fw-bold mb-0" style={{ color: '#111827' }}>
-              Reviews From <br />
-              <span className="d-inline-flex align-items-center gap-3 mt-2">
-                <img src="/review-icon.png" alt="Reviews" style={{ width: '80px', height: '80px', objectFit: 'contain' }} /> Our Clients
-              </span>
-            </h2>
-          </div>
+          <div className="row align-items-center gy-4">
+            <div className="col-lg-6" data-aos="fade-up">
+              <h2 className="review-heading">What Our Client Say About Us</h2>
+              <div className="review-underline" />
+              <p className="review-intro">
+                Collaboratively actualize excellent schemas without effective models. Synergistically engineer functionalized applications rather than backend e-commerce.
+              </p>
+            </div>
 
-          <div className="reviews-wrapper">
-            <div className="reviews-container">
-              <div className="reviews-track" style={{ transform: `translateX(-${activeIndex * (100 / 3)}%)` }}>
-                {testimonials.map((testimonial, i) => (
-                  <div className="review-card-col" key={i}>
-                    <div className="review-card">
-                      <div className="review-card-content-bg">
-                        <div className="review-stars mb-3">
-                          {renderStars(testimonial.rating)}
+            <div className="col-lg-6" data-aos="fade-up" data-aos-delay="120">
+              <div className="review-large-wrap">
+                <div className="review-card-stage">
+                  <div className="review-card-blank" />
+                  {activeTestimonial && (
+                    <div className="review-main-card" key={testimonialIndex}>
+                      <div className="review-card-header">
+                        <div className="review-card-avatar">
+                          <img src={activeTestimonial.image} alt={activeTestimonial.name} />
                         </div>
-                        <p className="review-text m-0">"{testimonial.text}"</p>
-                      </div>
-                      <div className="review-footer">
-                        <img src={testimonial.image} alt={testimonial.name} className="review-avatar" />
-                        <div className="review-author-info">
-                          <h5 className="review-name mb-0">{testimonial.name}</h5>
-                          <p className="review-role mb-0">Happy Client</p>
+                        <div className="review-card-meta">
+                          <h4 className="review-card-name">{activeTestimonial.name}</h4>
+                          <div className="review-card-role">{activeTestimonial.role}</div>
                         </div>
+                        <div className="review-quote-mark">“”</div>
                       </div>
+                      <p className="review-card-text">{activeTestimonial.text}</p>
+                      <div className="reviews-dots mt-4 text-center">
+                        {testimonials.map((_, i) => (
+                          <button key={i} className={`dot ${testimonialIndex === i ? 'active' : ''}`} onClick={() => setTestimonialIndex(i)} aria-label={`Show review ${i + 1}`}></button>
+                        ))}
+                      </div>
+                      <div className="review-plane-decor" />
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
+
+                <div className="review-navigation mt-4 d-flex justify-content-center gap-3">
+                  <button className="review-arrow prev" onClick={() => setTestimonialIndex((testimonialIndex - 1 + testimonials.length) % testimonials.length)} aria-label="Previous review">‹</button>
+                  <button className="review-arrow next" onClick={() => setTestimonialIndex((testimonialIndex + 1) % testimonials.length)} aria-label="Next review">›</button>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="reviews-dots mt-5 text-center">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                className={`dot ${activeIndex === i ? 'active' : ''}`}
-                onClick={() => setActiveIndex(i)}
-              ></button>
-            ))}
           </div>
         </div>
       </section>
@@ -426,10 +498,10 @@ export default function HomePage() {
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-lg-8">
+            <div className="col-12 col-lg-10 col-xl-9">
               <div className="faq-container">
                 {faqItems.map((item, index) => (
-                  <div key={index} className={`faq-item ${expandedFAQ === index ? 'active' : ''}`}>
+                  <div key={index} className={`faq-item ${expandedFAQ === index ? 'active' : ''}`} data-aos="fade-up" data-aos-delay={index * 80}>
                     <div className="faq-header-item" onClick={() => toggleFAQ(index)}>
                       <h4 className="faq-question">{item.question}</h4>
                       <span className="faq-toggle">

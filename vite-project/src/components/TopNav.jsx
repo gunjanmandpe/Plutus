@@ -22,9 +22,9 @@ export default function TopNav() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMenuOpen(false)
+    setMobileServicesOpen(false)
   }, [location])
 
   return (
@@ -37,7 +37,7 @@ export default function TopNav() {
             alt="Plutus Digital Asset Logo"
             className="brand-logo"
           />
-          <span className="sitename">Plutus <span className="sitename-accent">Digital</span></span>
+         
         </NavLink>
 
         {/* Desktop Nav */}
@@ -48,11 +48,11 @@ export default function TopNav() {
                 Home
               </NavLink>
             </li>
-            {/* <li>
+            <li>
               <NavLink to="/about">
                 About Us
               </NavLink>
-            </li> */}
+            </li>
             <li
               className={`nav-item-has-dropdown${servicesOpen ? ' open' : ''}`}
               onMouseEnter={() => setServicesOpen(true)}
@@ -75,7 +75,7 @@ export default function TopNav() {
                 Political
               </NavLink>
             </li>
-            {/* <li>
+            <li>
               <NavLink to="/blogs">
                 Blogs
               </NavLink>
@@ -84,16 +84,16 @@ export default function TopNav() {
               <NavLink to="/contact">
                 Contact Us
               </NavLink>
-            </li> */}
+            </li>
           </ul>
         </nav>
 
         {/* Right Side Actions */}
         <div className="nav-actions d-flex align-items-center gap-3">
-          <NavLink to="/login" className="nav-login-btn d-none d-lg-flex">
+          {/* <NavLink to="/login" className="nav-login-btn d-none d-lg-flex">
             <i className="bi bi-person me-1"></i> Login
-          </NavLink>
-          <NavLink to="/contact" className="nav-cta-btn d-none d-lg-flex">
+          </NavLink> */}
+          <NavLink to="/contact#contact-form" className="nav-cta-btn d-none d-lg-flex">
             Try It Free <i className="bi bi-arrow-right ms-2"></i>
           </NavLink>
           <button type="button" className="nav-icon-btn d-none d-lg-flex" aria-label="More actions">
@@ -164,14 +164,8 @@ export default function TopNav() {
                 <i className="bi bi-chevron-right ms-2" />
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/login">
-                Login
-                <i className="bi bi-chevron-right ms-2" />
-              </NavLink>
-            </li>
           </ul>
-          <NavLink to="/contact" className="mobile-cta-btn" onClick={() => setMenuOpen(false)}>
+          <NavLink to="/contact#contact-form" className="mobile-cta-btn" onClick={() => setMenuOpen(false)}>
             Request Demo <i className="bi bi-arrow-right ms-2"></i>
           </NavLink>
         </div>

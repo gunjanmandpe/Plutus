@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import IconCard from '../components/IconCard'
+import PageBanner from '../components/PageBanner'
 
 export default function SolutionsPage() {
   const solutions = [
@@ -43,37 +44,22 @@ export default function SolutionsPage() {
 
   return (
     <main className="main">
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <div className="hero-wrapper text-center">
-        <section className="container position-relative d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '50vh' }}>
-          <span className="hero-badge mb-3" data-aos="fade-down">Solutions</span>
-          <h1 className="fw-bold mb-4 text-white" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2', maxWidth: '800px', margin: '0 auto' }} data-aos="fade-up" data-aos-delay="100">
-            Purpose-built digital asset solutions for every stage of growth.
-          </h1>
-          <p className="mb-0" style={{ maxWidth: '680px', fontSize: '1.15rem', color: 'rgba(255,255,255,0.85)', lineHeight: '1.6', margin: '0 auto' }} data-aos="fade-up" data-aos-delay="200">
-            Built for modern investors and institutions, our solutions combine secure workflows, actionable insights, and operational control in one professional environment.
-          </p>
-          <div className="d-flex flex-wrap justify-content-center gap-3 mt-5" data-aos="fade-up" data-aos-delay="300">
-            <a href="/contact" className="btn-hero-primary">
-              Request Demo <i className="bi bi-arrow-right ms-1"></i>
-            </a>
-            <a href="/login" className="btn-hero-outline">
-              Access Platform
-            </a>
-          </div>
-        </section>
-      </div>
+      <PageBanner title="Solutions" breadcrumbs={[{ label: 'Solutions' }]} />
 
       {/* ── Why Choose Us ─────────────────────────────────── */}
       <section className="section py-5 bg-light">
         <div className="container py-4">
           <div className="row align-items-center gy-5">
             <div className="col-lg-6 pe-lg-5" data-aos="fade-right">
-              <span className="text-primary fw-bold text-uppercase tracking-wider mb-2 d-block" style={{ letterSpacing: '2px', fontSize: '0.85rem' }}>The Plutus Advantage</span>
-              <h2 className="fw-bold mb-4 text-dark display-6">Why teams choose Plutus</h2>
-              <p className="text-muted mb-4 fs-5" style={{ lineHeight: '1.8' }}>
+              <span className="page-section-kicker">The Plutus Advantage</span>
+              <h2 className="page-section-title">Why teams choose Plutus</h2>
+              <p className="page-section-subtitle mb-4">
                 From portfolio oversight to risk analysis and algorithmic intelligence, every capability is designed to support confident, scalable decision-making.
               </p>
+              <div className="page-visual-card mt-4">
+                <img src="/Future of digital marketing.webp" alt="Plutus strategy and growth" />
+                <span className="page-visual-badge">Strategy-first execution</span>
+              </div>
             </div>
             <div className="col-lg-6">
               <div className="row gy-4">
@@ -85,7 +71,7 @@ export default function SolutionsPage() {
                   { icon: 'headset', title: '24/7 dedicated support' }
                 ].map((item, idx) => (
                   <div className="col-md-6" key={item.title} data-aos="fade-up" data-aos-delay={100 * (idx + 1)}>
-                    <div className="d-flex align-items-start gap-3 p-3 bg-white rounded-4 shadow-sm h-100 transition-hover">
+                    <div className="d-flex align-items-start gap-3 p-3 bg-white rounded-4 shadow-sm h-100 transition-hover content-card">
                       <div className="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle" style={{ width: '48px', height: '48px', flexShrink: 0, fontSize: '1.25rem' }}>
                         <i className={`bi bi-${item.icon}`}></i>
                       </div>
