@@ -1,7 +1,15 @@
 /* ═══════════════════════════════════════════════════════
-   PLUTUS — GLOBAL WHITE THEME + PINK FOOTER
+   PLUTUS — GLOBAL WHITE THEME + BLUE/TEAL ACCENTS
    Loaded last to unify every page with the navbar theme.
 ═══════════════════════════════════════════════════════ */
+
+:root {
+  --plutus-accent: #1B4F9C;
+  --plutus-accent-2: #00BFA6;
+  --plutus-accent-soft: rgba(27, 79, 156, 0.10);
+  --plutus-accent-soft-2: rgba(0, 191, 166, 0.14);
+  --plutus-accent-shadow: rgba(27, 79, 156, 0.18);
+}
 
 html,
 body,
@@ -54,9 +62,9 @@ section,
   background: #ffffff !important;
 }
 
-/* ── Footer: pink only ── */
+/* ── Footer: brand accent ── */
 .footer-bar {
-  background: #e80566 !important;
+  background: var(--plutus-accent) !important;
   background-image: none !important;
   color: #ffffff !important;
   padding-top: 2.2rem !important;
@@ -123,25 +131,25 @@ section,
 }
 
 .dg-hero .hero-badge {
-  color: #e80566 !important;
-  background: rgba(232, 5, 102, 0.08) !important;
-  border: 1px solid rgba(232, 5, 102, 0.2) !important;
+  color: var(--plutus-accent) !important;
+  background: var(--plutus-accent-soft) !important;
+  border: 1px solid rgba(27, 79, 156, 0.2) !important;
 }
 
 .dg-hero .hero-badge::before {
-  background: #e80566 !important;
+  background: var(--plutus-accent) !important;
 }
 
 .dg-hero .btn-hero-outline,
 .dg-hero .hero-link {
-  color: #65258a !important;
+  color: var(--plutus-accent) !important;
   background: #ffffff !important;
-  border: 1px solid rgba(101, 37, 138, 0.25) !important;
+  border: 1px solid rgba(27, 79, 156, 0.25) !important;
 }
 
 .dg-hero .btn-hero-outline:hover {
-  background: rgba(232, 5, 102, 0.06) !important;
-  border-color: rgba(232, 5, 102, 0.35) !important;
+  background: var(--plutus-accent-soft) !important;
+  border-color: rgba(27, 79, 156, 0.35) !important;
 }
 
 .dg-hero .hero-link {
@@ -184,7 +192,7 @@ section,
 .about-badge,
 .service-hero-badge,
 .contact-hero-badge {
-  color: #e80566 !important;
+  color: var(--plutus-accent) !important;
   background: rgba(232, 5, 102, 0.08) !important;
   border: 1px solid rgba(232, 5, 102, 0.18) !important;
 }
@@ -197,7 +205,7 @@ section,
 }
 
 .breadcrumb-link {
-  color: #e80566 !important;
+  color: var(--plutus-accent) !important;
 }
 
 /* Stats / CTA bands → white cards */
@@ -221,7 +229,7 @@ section,
 }
 
 .about-stat-number {
-  color: #e80566 !important;
+  color: var(--plutus-accent) !important;
   font-weight: 800;
   font-size: 2rem;
 }
@@ -247,7 +255,7 @@ section,
 }
 
 .about-title-gradient {
-  background: linear-gradient(90deg, #65258a, #e80566);
+  background: linear-gradient(90deg, var(--plutus-accent-2), var(--plutus-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -255,7 +263,7 @@ section,
 
 .about-section-label {
   display: inline-block;
-  color: #e80566;
+  color: var(--plutus-accent);
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -266,7 +274,7 @@ section,
 .about-btn-primary {
   display: inline-flex;
   align-items: center;
-  background: #e80566;
+  background: var(--plutus-accent);
   color: #fff !important;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -277,7 +285,7 @@ section,
 .about-btn-ghost {
   display: inline-flex;
   align-items: center;
-  color: #65258a !important;
+  color: var(--plutus-accent-2) !important;
   border: 1px solid rgba(101, 37, 138, 0.25);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -393,7 +401,7 @@ section,
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #e80566;
+  background: var(--plutus-accent);
   flex-shrink: 0;
 }
 
@@ -402,7 +410,7 @@ section,
 }
 
 .service-page .service-benefits li i {
-  color: #e80566;
+  color: var(--plutus-accent);
   font-size: 1rem;
 }
 
@@ -422,7 +430,7 @@ section,
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
   background: rgba(232, 5, 102, 0.1);
-  color: #e80566;
+  color: var(--plutus-accent);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -511,7 +519,7 @@ section,
 }
 
 .page-feature-list li i {
-  color: #e80566;
+  color: var(--plutus-accent);
   font-size: 1rem;
 }
 
@@ -572,11 +580,11 @@ section,
 }
 
 .service-page .seo-solution-card.pink {
-  background: linear-gradient(135deg, #ff2d84 0%, #e80566 100%);
+  background: linear-gradient(135deg, var(--plutus-accent-2) 0%, var(--plutus-accent) 100%);
 }
 
 .service-page .seo-solution-card.purple {
-  background: linear-gradient(135deg, #7b4cf5 0%, #5a23a8 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, #5a23a8 100%);
 }
 
 .service-page .seo-solution-card.blue {
@@ -592,7 +600,7 @@ section,
 }
 
 .service-page .seo-solution-card.violet {
-  background: linear-gradient(135deg, #8b5cf6 0%, #4338ca 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent) 100%);
 }
 
 .service-page .seo-card-icon {
@@ -639,7 +647,7 @@ section,
 
 .service-page .service-section-tag {
   display: inline-block;
-  color: #e80566;
+  color: var(--plutus-accent);
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -687,15 +695,15 @@ section,
 }
 
 .branding-service-card.pink {
-  background: linear-gradient(135deg, #ff2d84 0%, #e80566 100%);
+  background: linear-gradient(135deg, var(--plutus-accent-2) 0%, var(--plutus-accent) 100%);
 }
 
 .branding-service-card.purple {
-  background: linear-gradient(135deg, #7b4cf5 0%, #65258a 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent-2) 100%);
 }
 
 .branding-service-card.violet {
-  background: linear-gradient(135deg, #8b5cf6 0%, #4c1d95 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, #4c1d95 100%);
 }
 
 .branding-service-card.blue {
@@ -805,7 +813,7 @@ section,
 .accent-blue:hover,
 .accent-green:hover,
 .accent-purple:hover {
-  background: #65258a;
+  background: var(--plutus-accent-2);
 }
 
 @media (max-width: 768px) {
@@ -823,7 +831,7 @@ section,
   justify-content: center;
   padding: 0.85rem 1.4rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, #e80566, #65258a);
+  background: linear-gradient(90deg, var(--plutus-accent), var(--plutus-accent-2));
   color: #ffffff;
   font-weight: 700;
   text-decoration: none;
@@ -852,7 +860,7 @@ section,
 }
 
 .service-page .sidebar-header i {
-  color: #e80566;
+  color: var(--plutus-accent);
   font-size: 1.05rem;
 }
 
@@ -876,7 +884,7 @@ section,
 .service-page .service-link:hover,
 .service-page .service-link.active {
   background: rgba(232, 5, 102, 0.08);
-  color: #e80566;
+  color: var(--plutus-accent);
   transform: translateX(3px);
 }
 
@@ -912,11 +920,11 @@ section,
 .dm-page .sidebar-header {
   background: #ffffff !important;
   color: #111827 !important;
-  border-bottom: 2px solid #e80566;
+  border-bottom: 2px solid var(--plutus-accent);
 }
 
 .dm-page .sidebar-header i {
-  color: #e80566 !important;
+  color: var(--plutus-accent) !important;
 }
 
 .dm-page .web-dev-cta-panel {
@@ -1009,7 +1017,7 @@ section,
   padding: 0.38rem 0.8rem;
   margin-bottom: 0.85rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, #e80566, #65258a);
+  background: linear-gradient(90deg, var(--plutus-accent), var(--plutus-accent-2));
   color: #fff;
   font-size: 0.84rem;
   font-weight: 700;
@@ -1083,7 +1091,7 @@ section,
   transform: translateY(-10px);
   box-shadow: 0 38px 100px rgba(15, 23, 42, 0.16);
   border-color: rgba(232, 5, 102, 0.18);
-  background: #65258a;
+  background: var(--plutus-accent-2);
   color: #ffffff;
 }
 .sequential-card:hover::after {
@@ -1095,7 +1103,7 @@ section,
 .sequential-card:hover .seq-card-action {
   transform: translateX(4px) scale(1.05);
   background: #ffffff;
-  color: #65258a;
+  color: var(--plutus-accent-2);
 }
 .sequential-card:hover .seq-tag,
 .sequential-card:hover .seq-title,
@@ -1122,7 +1130,7 @@ section,
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #e80566;
+  color: var(--plutus-accent);
   background: rgba(255, 255, 255, 0.94);
   opacity: 0;
   transform: translateY(-12px) scale(0.9);
@@ -1202,7 +1210,7 @@ section,
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: #e80566;
+  background: var(--plutus-accent);
   color: #ffffff;
   text-decoration: none;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;

@@ -2,131 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PageBanner from '../components/PageBanner'
-
-/* --------------------------------------------------------------
-   Static data
----------------------------------------------------------------- */
-const categories = [
-  "All",
-  "Digital Marketing",
-  "SEO",
-  "Social Media",
-  "Branding",
-  "Political",
-  "Trends",
-];
-
-const blogs = [
-  {
-    id: 1,
-    category: "Digital Marketing",
-    title: "10 Digital Marketing Trends Dominating 2025",
-    excerpt:
-      "From AI‑generated content to hyper‑personalized ads — discover the top trends shaping digital marketing this year and how to leverage them for your brand.",
-    date: "June 15, 2025",
-    readTime: "5 min read",
-    author: "Rahul Sharma",
-    authorRole: "CEO",
-    avatar: "RS",
-    color: "#6366f1",
-    featured: true,
-    image: '/Future of digital marketing.webp',
-  },
-  {
-    id: 2,
-    category: "SEO",
-    title: "How to Rank on Google’s First Page in 2025",
-    excerpt:
-      "A practical, no‑fluff guide to modern SEO — covering Core Web Vitals, E‑E‑A‑T, AI‑driven search, and link‑building strategies that actually work.",
-    date: "June 10, 2025",
-    readTime: "7 min read",
-    author: "Sneha Patil",
-    authorRole: "SEO Lead",
-    avatar: "SP",
-    color: "#8b5cf6",
-    featured: false,
-    image: '/SEO-in-2025.webp',
-  },
-  {
-    id: 3,
-    category: "Social Media",
-    title: "Instagram Reels vs YouTube Shorts: Where Should Your Brand Be?",
-    excerpt:
-      "Short‑form video is king — but which platform wins for your brand? We break down the audience, algorithm, and ROI of each platform with real data.",
-    date: "June 5, 2025",
-    readTime: "4 min read",
-    author: "Priya Mehta",
-    authorRole: "Strategy Head",
-    avatar: "PM",
-    color: "#a78bfa",
-    featured: false,
-    image: '/hero-slide-3.png',
-  },
-  {
-    id: 4,
-    category: "Branding",
-    title: "Why Brand Identity is Your Most Valuable Business Asset",
-    excerpt:
-      "A strong brand isn’t just a logo — it’s the feeling people get when they interact with your business. Here’s how to build one that lasts.",
-    date: "May 28, 2025",
-    readTime: "6 min read",
-    author: "Amit Kulkarni",
-    authorRole: "Creative Director",
-    avatar: "AK",
-    color: "#7c3aed",
-    featured: false,
-    image: '/creative1.jpeg',
-  },
-  {
-    id: 5,
-    category: "Political",
-    title: "How Political Campaigns Are Using Digital to Win Elections",
-    excerpt:
-      "Digital campaigning has transformed modern elections. Learn the strategies top campaigns use — from micro‑targeting voters to viral content creation.",
-    date: "May 20, 2025",
-    readTime: "8 min read",
-    author: "Rahul Sharma",
-    authorRole: "CEO",
-    avatar: "RS",
-    color: "#6366f1",
-    featured: false,
-    image: '/parliament-01.png',
-  },
-  {
-    id: 6,
-    category: "Trends",
-    title: "AI in Marketing: Hype or the Future?",
-    excerpt:
-      "Artificial Intelligence is reshaping how brands create content, target audiences, and measure success. Here’s the honest truth about what AI can and cannot do.",
-    date: "May 12, 2025",
-    readTime: "5 min read",
-    author: "Priya Mehta",
-    authorRole: "Strategy Head",
-    avatar: "PM",
-    color: "#8b5cf6",
-    featured: false,
-    image: '/your-busines-is-a-movie.webp',
-  },
-];
-
-const tags = [
-  'Agency',
-  'Business',
-  'Digital',
-  'Marketing',
-  'Startup',
-  'Technology',
-  'Trendy',
-];
-
-const catColors = {
-  "Digital Marketing": "#6366f1",
-  SEO: "#8b5cf6",
-  "Social Media": "#a78bfa",
-  Branding: "#7c3aed",
-  Political: "#4f46e5",
-  Trends: "#6d28d9",
-};
+import { blogs, categories, tags } from '../data/blogData'
 
 /* --------------------------------------------------------------
    Component
@@ -195,7 +71,7 @@ export default function BlogsPage() {
           <div className="row gy-4">
             <div className="col-lg-8" data-aos="fade-up" data-aos-delay="80">
               <div className="blog-list" data-aos="fade-up" data-aos-delay="100">
-                {filtered.map((blog, index) => (
+                {filtered.map((blog) => (
                   <article
                     key={blog.id}
                     className="blog-list-item"
@@ -214,9 +90,9 @@ export default function BlogsPage() {
                       <h3 className="blog-list-title">{blog.title}</h3>
                       <p className="blog-list-excerpt">{blog.excerpt}</p>
                       <div className="blog-list-footer">
-                        <button type="button" className="blog-card-link">
+                        <NavLink to={`/blogs/${blog.id}`} className="blog-card-link">
                           Read More <i className="bi bi-arrow-right ms-1" />
-                        </button>
+                        </NavLink>
                         <span className="blog-list-readtime">{blog.readTime}</span>
                       </div>
                     </div>
@@ -228,7 +104,7 @@ export default function BlogsPage() {
                 <div className="blog-empty text-center py-5" data-aos="fade-up">
                   <i
                     className="bi bi-journal-x"
-                    style={{ fontSize: "3rem", color: "rgba(232, 5, 102, 0.35)" }}
+                    style={{ fontSize: "3rem", color: "rgba(0, 191, 166, 0.35)" }}
                   />
                   <p style={{ color: "#6b7280", marginTop: "1rem" }}>
                     {searchQuery ? "No posts match your search yet." : "No posts in this category yet."}
@@ -261,10 +137,10 @@ export default function BlogsPage() {
                   <div className="sidebar-widget-title">Recent Posts</div>
                   <div className="blog-recent-list">
                     {recentPosts.map((post, index) => (
-                      <a key={post.id} href="#" className="blog-recent-item" data-aos="fade-up" data-aos-delay={140 + index * 40}>
+                      <NavLink key={post.id} to={`/blogs/${post.id}`} className="blog-recent-item" data-aos="fade-up" data-aos-delay={140 + index * 40}>
                         <span>{post.title}</span>
                         <small>{post.date}</small>
-                      </a>
+                      </NavLink>
                     ))}
                   </div>
                 </div>

@@ -3,13 +3,20 @@ import PageBanner from '../components/PageBanner'
 import ClientLogoSection from '../components/ClientLogoSection'
 import { useEffect } from 'react'
 
+const themeColors = {
+  brandBlue: '#1B4F9C',
+  brandNavy: '#0A1F2E',
+  brandTeal: '#00BFA6',
+  brandGreen: '#16A34A',
+}
+
 const teamMembers = [
   {
     name: 'Rahul Sharma',
     role: 'Founder & CEO',
     bio: 'Visionary leader with 12+ years driving digital growth for 200+ brands across India.',
     avatar: 'RS',
-    color: '#6366f1',
+    color: themeColors.brandBlue,
     linkedin: '#',
   },
   {
@@ -17,7 +24,7 @@ const teamMembers = [
     role: 'Head of Strategy',
     bio: 'Expert strategist specializing in brand positioning and high-impact marketing campaigns.',
     avatar: 'PM',
-    color: '#8b5cf6',
+    color: themeColors.brandNavy,
     linkedin: '#',
   },
   {
@@ -25,7 +32,7 @@ const teamMembers = [
     role: 'Creative Director',
     bio: 'Award-winning creative professional who transforms ideas into compelling visual narratives.',
     avatar: 'AK',
-    color: '#a78bfa',
+    color: themeColors.brandTeal,
     linkedin: '#',
   },
   {
@@ -33,7 +40,7 @@ const teamMembers = [
     role: 'SEO & Growth Lead',
     bio: 'Data-driven SEO specialist with a track record of 3x organic traffic growth for clients.',
     avatar: 'SP',
-    color: '#7c3aed',
+    color: themeColors.brandBlue,
     linkedin: '#',
   },
 ]
@@ -43,37 +50,37 @@ const values = [
     icon: 'bi-lightbulb-fill',
     title: 'Innovation First',
     desc: 'We embrace the latest digital trends and technologies to keep your brand ahead of the curve.',
-    color: '#6366f1',
+    color: themeColors.brandBlue,
   },
   {
     icon: 'bi-shield-fill-check',
     title: 'Trust & Transparency',
     desc: 'Every campaign, every report — full transparency so you always know your ROI.',
-    color: '#8b5cf6',
+    color: themeColors.brandNavy,
   },
   {
     icon: 'bi-graph-up-arrow',
     title: 'Results Driven',
     desc: "We measure success by your growth. Numbers don't lie — and ours speak for themselves.",
-    color: '#a78bfa',
+    color: themeColors.brandTeal,
   },
   {
     icon: 'bi-people-fill',
     title: 'Client Partnership',
     desc: 'We treat every client as a long-term partner. Your success is our success.',
-    color: '#7c3aed',
+    color: themeColors.brandBlue,
   },
   {
     icon: 'bi-stars',
     title: 'Creative Excellence',
     desc: 'Exceptional creative work that captures attention, sparks emotion, and drives action.',
-    color: '#6366f1',
+    color: themeColors.brandGreen,
   },
   {
     icon: 'bi-clock-history',
     title: 'On-Time Delivery',
     desc: 'Deadlines matter. We plan meticulously and always deliver on time, every time.',
-    color: '#8b5cf6',
+    color: themeColors.brandNavy,
   },
 ]
 
@@ -385,7 +392,7 @@ export default function AboutPage() {
                 <NavLink to="/contact" className="about-btn-primary" data-aos="fade-up" data-aos-delay="120">
                   Get Free Consultation <i className="bi bi-arrow-right ms-2"></i>
                 </NavLink>
-                <a href="mailto:contact@plutussdigital.com" className="about-btn-ghost" data-aos="fade-up" data-aos-delay="180">
+                <a href="mailto:info.plutuss@gmail.com" className="about-btn-ghost" data-aos="fade-up" data-aos-delay="180">
                   <i className="bi bi-envelope me-2"></i> Email Us
                 </a>
               </div>

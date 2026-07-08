@@ -41,12 +41,18 @@ export default function ContactPage() {
             </div>
             <div className="contact-hero-details">
               <div className="contact-hero-pill">
+                <i className="bi bi-telephone-fill"></i>
+                <a href="tel:+917385594572">+91 73855 94572</a>
+              </div>
+              <div className="contact-hero-pill">
                 <i className="bi bi-envelope-fill"></i>
-                <span>sales@plutusdigitalasset.com</span>
+                <a href="mailto:info.plutuss@gmail.com">info.plutuss@gmail.com</a>
               </div>
               <div className="contact-hero-pill">
                 <i className="bi bi-geo-alt-fill"></i>
-                <span>Wakad, Pune, Maharashtra</span>
+                <a href="https://maps.app.goo.gl/PgFtHWD1CmeK6eT4A" target="_blank" rel="noopener noreferrer">
+                  212- City Avenue Commercial, Wakad, Pune-57
+                </a>
               </div>
               <div className="contact-hero-pill">
                 <i className="bi bi-clock-fill"></i>
@@ -72,8 +78,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="mb-1 fw-semibold text-dark">Email Us</p>
-                  <a href="mailto:sales@plutusdigitalasset.com" className="text-decoration-none contact-info-link">
-                    sales@plutusdigitalasset.com
+                  <a href="mailto:info.plutuss@gmail.com" className="text-decoration-none contact-info-link">
+                    info.plutuss@gmail.com
                   </a>
                 </div>
               </div>
@@ -84,8 +90,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="mb-1 fw-semibold text-dark">Call Us</p>
-                  <a href="tel:+919999999999" className="text-decoration-none contact-info-link">
-                    +91 99999 99999
+                  <a href="tel:+917385594572" className="text-decoration-none contact-info-link">
+                    +91 73855 94572
                   </a>
                 </div>
               </div>
@@ -96,23 +102,25 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="mb-1 fw-semibold text-dark">Visit Us</p>
-                  <span className="contact-info-link">Wakad, Pune, Maharashtra, India</span>
+                  <a href="https://maps.app.goo.gl/PgFtHWD1CmeK6eT4A" target="_blank" rel="noopener noreferrer" className="text-decoration-none contact-info-link">
+                    212- City Avenue Commercial, Wakad, Pune-57
+                  </a>
                 </div>
               </div>
 
               <div className="mt-4">
                 <p className="fw-semibold text-dark mb-3">Follow Us</p>
                 <div className="d-flex flex-wrap gap-3">
-                  <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="Facebook">
+                  <a href="https://www.facebook.com/plutuss.digital" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="Facebook">
                     <i className="bi bi-facebook"></i>
                   </a>
-                  <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="Twitter">
+                  <a href="https://x.com/PlutussD" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="Twitter">
                     <i className="bi bi-twitter-x"></i>
                   </a>
-                  <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="Instagram">
+                  <a href="https://www.instagram.com/plutussdigital/" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="Instagram">
                     <i className="bi bi-instagram"></i>
                   </a>
-                  <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="LinkedIn">
+                  <a href="https://www.linkedin.com/company/plutussdigital" target="_blank" rel="noopener noreferrer" className="contact-social-icon" aria-label="LinkedIn">
                     <i className="bi bi-linkedin"></i>
                   </a>
                 </div>
@@ -157,7 +165,7 @@ export default function ContactPage() {
                       </div>
                       <div className="col-md-6">
                         <label className="form-label fw-semibold text-dark">Phone Number</label>
-                        <input type="tel" name="phone" className="form-control contact-input" placeholder="+91 99999 99999" value={formData.phone} onChange={handleChange} />
+                        <input type="tel" name="phone" className="form-control contact-input" placeholder="+91 73855 94572" value={formData.phone} onChange={handleChange} />
                       </div>
                       <div className="col-12">
                         <label className="form-label fw-semibold text-dark">I'm interested in</label>

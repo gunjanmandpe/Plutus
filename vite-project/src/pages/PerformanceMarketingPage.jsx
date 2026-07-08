@@ -162,7 +162,7 @@ export default function PerformanceMarketingPage() {
             {funnelSteps.map((step, idx) => (
               <div className="col-md-3" key={step} data-aos="fade-up" data-aos-delay={idx * 80}>
                 <div className="content-card h-100 p-4 text-center">
-                  <div className="badge rounded-pill mb-3" style={{ padding: '0.6rem 1rem', fontWeight: 700, background: 'rgba(124,58,237,0.1)', color: '#7c3aed' }}>
+                  <div className="badge rounded-pill mb-3" style={{ padding: '0.6rem 1rem', fontWeight: 700, background: 'rgba(0,191,166,0.12)', color: 'var(--brand-blue)' }}>
                     Step {idx + 1}
                   </div>
                   <h3 className="h5 mb-2">{step}</h3>
@@ -201,7 +201,7 @@ export default function PerformanceMarketingPage() {
             {impactStats.map((stat) => (
               <div className="col-md-4" key={stat.label} data-aos="fade-up">
                 <div className="content-card h-100 p-4 text-center">
-                  <div className="display-6 fw-bold mb-3" style={{ color: '#7c3aed' }}>{stat.value}</div>
+                  <div className="display-6 fw-bold mb-3" style={{ color: 'var(--brand-blue)' }}>{stat.value}</div>
                   <p className="mb-0">{stat.label}</p>
                 </div>
               </div>

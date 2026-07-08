@@ -18,17 +18,20 @@ export default function Footer() {
               A next-generation digital asset platform empowering individuals and institutions with seamless access to premier crypto trading and liquidity venues.
             </p>
             <div className="footer-social d-flex gap-3">
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Facebook">
+              <a href="https://www.facebook.com/plutuss.digital" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Facebook">
                 <i className="bi bi-facebook"></i>
               </a>
-              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Twitter">
+              <a href="https://x.com/PlutussD" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Twitter">
                 <i className="bi bi-twitter-x"></i>
               </a>
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Instagram">
+              <a href="https://www.instagram.com/plutussdigital/" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Instagram">
                 <i className="bi bi-instagram"></i>
               </a>
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/plutussdigital" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="LinkedIn">
                 <i className="bi bi-linkedin"></i>
+              </a>
+              <a href="https://www.youtube.com/@PlutussDigital?themeRefresh=" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="YouTube">
+                <i className="bi bi-youtube"></i>
               </a>
             </div>
           </div>
@@ -63,15 +66,27 @@ export default function Footer() {
             <h5 className="footer-heading">Contact Us</h5>
             <ul className="footer-contact-list">
               <li>
-                <a href="mailto:sales@plutusdigitalasset.com">
+                <a href="tel:+917385594572">
+                  <i className="bi bi-telephone-fill me-2"></i>
+                  +91 73855 94572
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info.plutuss@gmail.com">
                   <i className="bi bi-envelope-fill me-2"></i>
-                  sales@plutusdigitalasset.com
+                  info.plutuss@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://maps.app.goo.gl/PgFtHWD1CmeK6eT4A" target="_blank" rel="noopener noreferrer">
+                  <i className="bi bi-geo-alt-fill me-2"></i>
+                  212- City Avenue Commercial, Wakad, Pune-57
                 </a>
               </li>
             </ul>
-            <NavLink to="/contact#contact-form" className="btn-request-demo d-inline-block mt-4">
+            {/* <NavLink to="/contact#contact-form" className="btn-request-demo d-inline-block mt-4">
               Request Demo
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
 
@@ -80,7 +95,9 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="footer-bottom row align-items-center gy-2">
-          <div className="col-12"></div>
+          <div className="col-12 text-center">
+            <p>© 2025 Plutuss Digital. All rights reserved.</p>
+          </div>
         </div>
 
         <div className="footer-legal text-center py-2"></div>

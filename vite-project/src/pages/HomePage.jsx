@@ -1,5 +1,6 @@
 import IconCard from '../components/IconCard'
 import HeroSlider from '../components/HeroSlider'
+import OurWork from '../components/OurWork'
 import { useState, useRef, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -203,6 +204,32 @@ export default function HomePage() {
       {/* ── Hero Slider ─────────────────────────────────── */}
       <HeroSlider />
 
+      <section className="hero-partner-strip-section" aria-label="Trusted partners">
+        <div className="container">
+          <div className="hero-partner-strip">
+            <div className="hero-partner-heading">
+              <span className="hero-partner-label">Trusted Partners</span>
+              <span className="hero-partner-subtitle">Brands that trust our growth-driven work</span>
+            </div>
+            <div className="hero-partner-track">
+              {[...[
+                { src: '/royal-court-logo.png', alt: 'Royal Court' },
+                { src: '/trimortal-logo.png', alt: 'Trimortal Ventures' },
+                { src: '/prosumers-logo.png', alt: 'Prosumers Solar' },
+              ], ...[
+                { src: '/royal-court-logo.png', alt: 'Royal Court' },
+                { src: '/trimortal-logo.png', alt: 'Trimortal Ventures' },
+                { src: '/prosumers-logo.png', alt: 'Prosumers Solar' },
+              ]].map((logo, index) => (
+                <div key={`${logo.alt}-${index}`} className="hero-partner-logo-item">
+                  <img src={logo.src} alt={logo.alt} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── About ─────────────────────────────────────────── */}
       <section id="about" className="about section dg-about-section">
         <div className="container" data-aos="fade-up">
@@ -315,54 +342,7 @@ export default function HomePage() {
           </div>
       </section>
 
-      {/* ── Featured Projects ────────────────────────────── */}
-      <section className="featured-projects section py-5">
-        <div className="container" data-aos="fade-up">
-          <div className="projects-header text-center mb-5">
-            <span className="section-label">Featured Projects</span>
-            <h2 className="section-title">Work We're <span className="text-gradient">Proud Of</span></h2>
-            <p className="section-description">Browse a selection of our most impactful campaigns and digital experiences built for real business results.</p>
-          </div>
-
-          <div className="row gy-4">
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <div className="project-card">
-                <div className="project-card-header">
-                  <div className="project-card-img">
-                    <img src="/royal-court-logo.png" alt="Royal Court" />
-                  </div>
-                </div>
-                <h3 className="project-card-title mt-4 mb-3">Royal Court</h3>
-                <p className="project-card-desc text-muted">A real estate campaign that generated quality leads within the first month and achieved excellent ROI through a tailored digital marketing strategy.</p>
-              </div>
-            </div>
-
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-              <div className="project-card">
-                <div className="project-card-header">
-                  <div className="project-card-img">
-                    <img src="/trimortal-logo.png" alt="Trimortal Ventures" />
-                  </div>
-                </div>
-                <h3 className="project-card-title mt-4 mb-3">Trimortal Ventures</h3>
-                <p className="project-card-desc text-muted">Generated high-quality real estate leads and built trust by showcasing successful collaborations and client satisfaction through strategic content marketing.</p>
-              </div>
-            </div>
-
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-              <div className="project-card">
-                <div className="project-card-header">
-                  <div className="project-card-img">
-                    <img src="/prosumers-logo.png" alt="Prosumers Solar" />
-                  </div>
-                </div>
-                <h3 className="project-card-title mt-4 mb-3">Prosumers Solar Pvt Ltd</h3>
-                <p className="project-card-desc text-muted">Generated qualified solar leads and built trust with educational content to promote sustainable energy adoption and long-term customer relationships.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <OurWork />
 
       {/* ── Reviews From Clients ────────────────────────── */}
       <section className="reviews-section section py-5">
@@ -370,6 +350,7 @@ export default function HomePage() {
         <div className="container" data-aos="fade-up">
           <div className="row align-items-center gy-4">
             <div className="col-lg-6" data-aos="fade-up">
+              <span className="section-label">Testimonials</span>
               <h2 className="review-heading">What Our Client Say About Us</h2>
               <div className="review-underline" />
               <p className="review-intro">
@@ -492,7 +473,7 @@ export default function HomePage() {
       <section className="faq-custom section py-5">
         <div className="container" data-aos="fade-up">
           <div className="faq-header text-center mb-5">
-            <span className="faq-label">FAQ</span>
+            <span className="section-label">FAQ</span>
             <h2 className="fw-bold mt-3">Frequently Asked <span className="text-gradient">Questions</span></h2>
             <p className="text-muted mt-3">Find answers to some of the most common questions about our digital marketing services.</p>
           </div>

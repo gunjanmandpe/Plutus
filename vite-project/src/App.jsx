@@ -3,6 +3,7 @@ import './digimark-pages.css'
 import './App.css'
 import './page-banner.css'
 import './site-theme.css'
+import './plutus-palette.css'
 import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import AOS from 'aos'
@@ -23,6 +24,7 @@ import PerformanceMarketingPage from './pages/PerformanceMarketingPage'
 import AboutPage from './pages/AboutPage'
 import PoliticalPage from './pages/PoliticalPage'
 import BlogsPage from './pages/BlogsPage'
+import BlogDetailPage from './pages/BlogDetailPage'
 
 const seoConfig = {
   '/': {
@@ -201,6 +203,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/political" element={<PoliticalPage />} />
         <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/blogs/:blogId" element={<BlogDetailPage />} />
         <Route path="/platform" element={<PlatformPage />} />
         <Route path="/solutions" element={<SolutionsPage />} />
         <Route path="/contact" element={<ContactPage />} />

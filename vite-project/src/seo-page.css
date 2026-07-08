@@ -101,7 +101,7 @@
 .seo-btn-primary {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(135deg, #ff6d38 0%, #fb7185 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent-2) 100%);
   color: #fff !important;
   font-weight: 700;
   font-size: 0.98rem;
@@ -432,7 +432,7 @@
   height: 60px;
   min-width: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff6d38 0%, #fb7185 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent-2) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -554,7 +554,7 @@
 .seo-why-cta {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(135deg, #ff6d38 0%, #fb7185 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent-2) 100%);
   color: #fff !important;
   padding: 14px 32px;
   border-radius: 999px;
@@ -659,7 +659,7 @@
 .seo-cta-btn-white {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(135deg, #ff6d38 0%, #fb7185 100%);
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent-2) 100%);
   color: #fff !important;
   font-weight: 700;
   font-size: 0.95rem;

@@ -5,15 +5,15 @@
 /* We are dropping main.css from the old template */
 
 :root {
-  --brand: #7c3aed;
-  --brand-2: #9333ea;
-  --brand-light: #a78bfa;
+  --brand: #1B4F9C;
+  --brand-2: #00BFA6;
+  --brand-light: rgba(0, 191, 166, 0.14);
   --surface: #ffffff;
-  --text: #4b5563;
-  --text-muted: #6b7280;
-  --heading: #111827;
+  --text: #334155;
+  --text-muted: #64748b;
+  --heading: #0f172a;
   --bg-base: #ffffff;
-  --bg-subtle: #f8f7ff;
+  --bg-subtle: rgba(0, 191, 166, 0.06);
   
   color: var(--text);
   font-family: 'Inter', 'Poppins', system-ui, -apple-system, sans-serif;

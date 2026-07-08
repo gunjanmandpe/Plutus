@@ -655,7 +655,7 @@
 }
 
 .dm-page .seo-cta-btn-white {
-  background: linear-gradient(135deg, #ff6d38 0%, #fb7185 100%) !important;
+  background: linear-gradient(135deg, var(--plutus-accent) 0%, var(--plutus-accent-2) 100%) !important;
   color: #ffffff !important;
   border-radius: 999px !important;
   padding: 15px 36px !important;
@@ -875,8 +875,8 @@
 
 /* Political page — DigiMark colors, keep layout & content */
 .dm-page.pol-strategy-page {
-  --baseShade1: #65258a;
-  --accentShade: #e80566;
+  --baseShade1: var(--plutus-accent-2);
+  --accentShade: var(--plutus-accent);
   --accentSoft: #f6f6f6;
   font-family: 'Open Sans', sans-serif;
 }
